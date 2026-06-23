@@ -1,0 +1,2420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media for Social Impact</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700;800&display=swap');
+
+    :root{
+      --navy:#11284f;
+      --navy-2:#0b1e3b;
+      --blue:#173a72;
+      --teal:#2a8d8d;
+      --orange:#f58231;
+      --bg:#f7f9fc;
+      --text:#5b6878;
+      --muted:#7f8b99;
+      --border:#e4ebf3;
+      --card:#ffffff;
+      --shadow:0 16px 40px rgba(14, 24, 44, .08);
+      --shadow-strong:0 24px 70px rgba(7, 12, 20, .18);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--navy);
+      background:var(--bg);
+    }
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+
+    .container{
+      width:min(1180px,calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .font-display{
+      font-family:"Cormorant Garamond",Georgia,serif;
+      letter-spacing:-.04em;
+    }
+
+    .section-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--orange);
+    }
+    .section-kicker .line{
+      width:34px;
+      height:1px;
+      background:currentColor;
+      opacity:.9;
+    }
+
+    .section-title{
+      margin:12px 0 0;
+      font-size:clamp(2.4rem,4vw,4.1rem);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.05em;
+      color:var(--navy);
+    }
+    .section-subtitle{
+      margin:14px auto 0;
+      max-width:760px;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 16px;
+      border-radius:8px;
+      border:1px solid transparent;
+      font-size:13px;
+      font-weight:700;
+      line-height:1;
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:var(--orange);
+      color:#fff;
+      box-shadow:0 10px 22px rgba(245,130,49,.18);
+    }
+    .btn-outline{
+      background:#fff;
+      color:var(--blue);
+      border-color:#cdd8e6;
+    }
+    .btn-dark{
+      background:var(--blue);
+      color:#fff;
+    }
+    .btn-light{
+      background:#fff;
+      color:var(--navy);
+      border-color:#fff;
+    }
+
+    /* Header */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid #edf1f7;
+    }
+    .header-inner{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      flex:1;
+      font-size:13px;
+      font-weight:600;
+      color:#5e6c7d;
+      white-space:nowrap;
+    }
+    .nav a:hover{color:var(--navy)}
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:220px;
+      justify-content:flex-end;
+    }
+
+    .nav-toggle{
+      display:none;
+      width:46px;
+      height:46px;
+      border-radius:12px;
+      border:1px solid #d8e1ec;
+      background:#fff;
+      box-shadow:0 8px 18px rgba(15,23,42,.05);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      flex:0 0 auto;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .nav-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 22px rgba(15,23,42,.08);
+      border-color:#c7d3e3;
+    }
+    .nav-toggle .bars{
+      width:18px;
+      height:12px;
+      position:relative;
+      display:block;
+    }
+    .nav-toggle .bars span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      border-radius:999px;
+      background:var(--navy);
+      transition:.22s ease;
+    }
+    .nav-toggle .bars span:nth-child(1){top:0}
+    .nav-toggle .bars span:nth-child(2){top:5px}
+    .nav-toggle .bars span:nth-child(3){top:10px}
+
+    .drawer-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(8,14,24,.50);
+      backdrop-filter:blur(3px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .22s ease;
+      z-index:59;
+    }
+    .drawer-backdrop.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .mobile-drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100vh;
+      width:min(88vw, 360px);
+      background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);
+      border-left:1px solid rgba(255,255,255,.08);
+      box-shadow:-18px 0 44px rgba(7,12,20,.22);
+      transform:translateX(100%);
+      transition:transform .28s ease;
+      z-index:60;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+    }
+    .mobile-drawer.open{
+      transform:translateX(0);
+    }
+    .drawer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding-bottom:14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      margin-bottom:16px;
+    }
+    .drawer-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .drawer-brand .brand-mark{
+      width:38px;
+      height:38px;
+      flex:0 0 auto;
+    }
+    .drawer-brand .brand-name{
+      color:#fff;
+    }
+    .drawer-brand .brand-name span{
+      color:rgba(255,255,255,.76);
+    }
+    .drawer-close{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      font-size:24px;
+      line-height:1;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition:background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .drawer-close:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.18);
+    }
+    .drawer-nav{
+      display:grid;
+      gap:8px;
+      margin-top:4px;
+    }
+    .drawer-nav a{
+      color:#fff;
+      padding:14px 14px;
+      border-radius:12px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      font-size:14px;
+      font-weight:700;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .drawer-nav a:hover{
+      transform:translateX(-2px);
+      background:rgba(245,130,49,.10);
+      border-color:rgba(245,130,49,.22);
+    }
+    .drawer-cta{
+      margin-top:auto;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:grid;
+      gap:10px;
+    }
+    .drawer-cta .btn{
+      width:100%;
+      border-radius:12px;
+      padding:13px 14px;
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height:calc(100vh - 74px);
+      overflow:hidden;
+      color:#fff;
+      background:linear-gradient(180deg,#14315f 0%, #0f2244 100%);
+    }
+    .hero-carousel{
+      position:absolute;
+      inset:0;
+    }
+    .hero-slide{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      transition:opacity 1.2s ease-in-out, transform 5s ease;
+      transform:scale(1.02);
+      filter:saturate(1.05);
+    }
+    .hero-slide.active{
+      opacity:1;
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(10, 24, 46, .42), rgba(10, 24, 46, .72)),
+        linear-gradient(90deg, rgba(10, 24, 46, .36), rgba(10, 24, 46, .18));
+    }
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      min-height:calc(100vh - 74px);
+      display:grid;
+      align-items:center;
+      padding:56px 0 44px;
+    }
+    .hero-copy{
+      max-width:920px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.9);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      backdrop-filter:blur(4px);
+    }
+    .hero h1{
+      margin:16px 0 0;
+      max-width:820px;
+      font-size:clamp(3.2rem,5.8vw,5.9rem);
+      line-height:.92;
+      font-weight:700;
+      letter-spacing:-.06em;
+    }
+    .hero h1 .accent{color:var(--orange)}
+    .hero p{
+      margin:20px 0 0;
+      max-width:860px;
+      font-size:16px;
+      line-height:1.95;
+      color:rgba(255,255,255,.92);
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:26px;
+    }
+    .hero-actions .btn{
+      padding:14px 18px;
+      border-radius:8px;
+    }
+    .btn-light{
+      background:#fff;
+      color:var(--navy);
+      border-color:#fff;
+    }
+    .hero-stats{
+      margin-top:28px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:flex;
+      flex-wrap:wrap;
+      gap:28px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.86);
+    }
+    .hero-stats span{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--orange);
+      flex:0 0 auto;
+    }
+    .discover{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:18px;
+      z-index:2;
+      text-align:center;
+      color:rgba(255,255,255,.72);
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.42em;
+      text-transform:uppercase;
+    }
+
+    /* About */
+    .about{
+      background:#fff;
+      padding:96px 0;
+    }
+    .about-grid{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:54px;
+      align-items:center;
+    }
+    .about-image-wrap{position:relative}
+    .about-image{
+      overflow:hidden;
+      border-radius:26px;
+      box-shadow:0 24px 80px rgba(15,23,42,.16);
+      border:1px solid #e8edf4;
+    }
+    .about-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .years-card{
+      position:absolute;
+      right:34px;
+      bottom:-18px;
+      background:#f28a45;
+      color:#fff;
+      border-radius:16px;
+      padding:16px 18px 14px;
+      box-shadow:0 18px 40px rgba(245,130,49,.28);
+      min-width:112px;
+    }
+    .years-card strong{
+      display:block;
+      font-size:34px;
+      line-height:1;
+      font-weight:900;
+    }
+    .years-card small{
+      display:block;
+      margin-top:3px;
+      font-size:11px;
+      line-height:1.2;
+      font-weight:700;
+    }
+    .about h2{
+      margin:12px 0 0;
+      font-size:clamp(2.5rem,3.9vw,4.15rem);
+      line-height:.95;
+      font-weight:700;
+      color:var(--navy);
+      letter-spacing:-.05em;
+    }
+    .about p{
+      margin:14px 0 0;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.9;
+      max-width:680px;
+    }
+    .about .learn{
+      margin-top:22px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--navy);
+      font-weight:800;
+      font-size:14px;
+    }
+
+    /* Programs */
+    .programs{
+      background:#fff;
+      padding:88px 0 52px;
+    }
+    .programs-head{
+      text-align:center;
+      max-width:920px;
+      margin:0 auto;
+    }
+    .programs-grid{
+      margin-top:34px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .program-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 1px 0 rgba(15,23,42,.03), 0 10px 28px rgba(15,23,42,.06);
+    }
+    .program-image{
+      position:relative;
+      height:164px;
+      overflow:hidden;
+      background:#dfe8f2;
+    }
+    .program-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .tag{
+      position:absolute;
+      top:10px;
+      left:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      color:#fff;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.05em;
+      box-shadow:0 8px 16px rgba(0,0,0,.12);
+    }
+    .tag.orange{background:#f28a45}
+    .tag.green{background:#2da571}
+    .program-content{
+      padding:18px 18px 20px;
+    }
+    .program-content h3{
+      margin:0;
+      font-size:16px;
+      line-height:1.35;
+      font-weight:800;
+      color:var(--navy);
+      max-width:420px;
+    }
+    .program-content p{
+      margin:10px 0 0;
+      color:#6a7686;
+      font-size:13px;
+      line-height:1.75;
+    }
+    .pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eff4fb;
+      color:#5e6b7b;
+      font-size:11px;
+      font-weight:700;
+      border:1px solid #dbe5f0;
+    }
+    .program-link{
+      display:inline-flex;
+      margin-top:16px;
+      color:var(--navy);
+      font-size:13px;
+      font-weight:800;
+      gap:6px;
+      align-items:center;
+    }
+    .center-actions{
+      text-align:center;
+      margin-top:22px;
+    }
+
+    /* Values */
+    .values{
+      background:#0f2244;
+      color:#fff;
+      padding:88px 0 98px;
+      position:relative;
+      overflow:hidden;
+    }
+    .values:after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:3px;
+      background:linear-gradient(90deg,#f58231 0%, #25a4c7 45%, #8d59ff 100%);
+      opacity:.85;
+    }
+    .values .section-kicker{
+      color:#f58231;
+    }
+    .values-head{
+      text-align:center;
+      max-width:960px;
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+    .values h2{
+      margin:12px 0 0;
+      font-size:clamp(2.5rem,4vw,4.25rem);
+      line-height:.96;
+      font-weight:700;
+      letter-spacing:-.05em;
+      color:#fff;
+    }
+    .values h2 .accent{color:#f58231}
+    .values-head p{
+      margin:14px auto 0;
+      max-width:760px;
+      color:rgba(255,255,255,.76);
+      font-size:14px;
+      line-height:1.8;
+    }
+    .values-grid{
+      margin-top:42px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      position:relative;
+      z-index:1;
+    }
+    .value-card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:22px 18px 18px;
+      box-shadow:0 12px 32px rgba(0,0,0,.12);
+      min-height:150px;
+    }
+    .value-card .bar{
+      width:22px;
+      height:3px;
+      border-radius:999px;
+      margin-bottom:18px;
+    }
+    .bar.green{background:#3cc27e}
+    .bar.teal{background:#2ec4d6}
+    .bar.orange{background:#f28a45}
+    .bar.blue{background:#4aa3ff}
+    .bar.purple{background:#9a63ff}
+    .bar.yellow{background:#f5b84a}
+    .value-card h3{
+      margin:0;
+      font-size:15px;
+      font-weight:800;
+      color:#fff;
+    }
+    .value-card p{
+      margin:10px 0 0;
+      color:rgba(255,255,255,.76);
+      font-size:12px;
+      line-height:1.75;
+    }
+
+    /* Impact story */
+    .story{
+      background:#fff;
+      padding:92px 0;
+    }
+    .story-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:52px;
+      align-items:center;
+    }
+    .story-media{
+      position:relative;
+    }
+    .story-image{
+      overflow:hidden;
+      border-radius:18px;
+      box-shadow:var(--shadow-strong);
+    }
+    .story-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .story-badge{
+      position:absolute;
+      left:-6px;
+      top:-6px;
+      background:#2e9b76;
+      color:#fff;
+      border-radius:12px;
+      padding:14px 14px 12px;
+      min-width:72px;
+      text-align:left;
+      box-shadow:0 14px 28px rgba(46,155,118,.28);
+    }
+    .story-badge strong{
+      display:block;
+      font-size:18px;
+      line-height:1;
+      font-weight:900;
+    }
+    .story-badge small{
+      display:block;
+      margin-top:3px;
+      font-size:10px;
+      line-height:1.15;
+      font-weight:700;
+      opacity:.95;
+    }
+    .story-copy .section-kicker{
+      color:#2e8c87;
+    }
+    .story-copy h2{
+      margin:12px 0 0;
+      font-size:clamp(2.5rem,4vw,4.1rem);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.05em;
+      color:var(--navy);
+    }
+    .story-box{
+      margin-top:18px;
+      background:#f8fbfe;
+      border:1px solid #edf2f7;
+      border-left:3px solid #2d9b76;
+      border-radius:14px;
+      padding:22px 22px 20px;
+      box-shadow:0 8px 20px rgba(15,23,42,.05);
+    }
+    .story-box h3{
+      margin:0;
+      font-size:16px;
+      line-height:1.4;
+      color:var(--navy);
+      font-weight:800;
+    }
+    .story-box p{
+      margin:12px 0 0;
+      color:#61707f;
+      font-size:13px;
+      line-height:1.82;
+    }
+    .story-copy .body{
+      margin:18px 0 0;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.9;
+      max-width:560px;
+    }
+    .story-link{
+      display:inline-flex;
+      margin-top:18px;
+      color:#2e8c87;
+      font-weight:800;
+      gap:8px;
+      align-items:center;
+      font-size:14px;
+    }
+
+    /* Partners */
+    .partners{
+      background:#f7f9fc;
+      padding:0 0 84px;
+    }
+    .partners-strip{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      height:178px;
+      overflow:hidden;
+      background:#d9e2ef;
+    }
+    .partners-strip .strip-card{
+      position:relative;
+      overflow:hidden;
+    }
+    .partners-strip .strip-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:saturate(.95) contrast(.96);
+      transform:scale(1.02);
+    }
+    .partners-strip .strip-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(10,20,35,.18), rgba(10,20,35,.28));
+    }
+    .partners-main{
+      padding:84px 0 0;
+    }
+    .partners-grid{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:56px;
+      align-items:center;
+    }
+    .partners-copy{
+      max-width:520px;
+    }
+    .partners-copy h2{
+      margin:12px 0 0;
+      font-size:clamp(2.4rem, 4vw, 4.15rem);
+      line-height:.98;
+      font-weight:700;
+      color:var(--navy);
+      letter-spacing:-0.05em;
+    }
+    .partners-copy p{
+      margin:18px 0 0;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.9;
+      max-width:520px;
+    }
+    .partners-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:24px;
+      padding:14px 18px;
+      border-radius:6px;
+      background:var(--navy);
+      color:#fff;
+      font-size:13px;
+      font-weight:800;
+      box-shadow:0 14px 26px rgba(17,40,79,.18);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .partners-cta:hover{
+      transform:translateY(-1px);
+      box-shadow:0 18px 32px rgba(17,40,79,.22);
+    }
+    .partners-visual{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      align-items:start;
+    }
+    .partners-image{
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 20px 44px rgba(17,40,79,.14);
+      position:relative;
+      min-height:162px;
+    }
+    .partners-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .partners-image::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.2));
+    }
+    .partners-image-caption{
+      position:absolute;
+      left:14px;
+      bottom:12px;
+      z-index:2;
+      color:#fff;
+      font-size:12px;
+      font-weight:700;
+      text-shadow:0 2px 12px rgba(0,0,0,.28);
+    }
+    .partners-pill-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+    .partner-pill{
+      background:#fff;
+      border:1px solid rgba(18,39,78,.08);
+      border-radius:10px;
+      padding:13px 14px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      box-shadow:0 6px 18px rgba(15,23,42,.04);
+      min-height:54px;
+    }
+    .partner-pill .ico{
+      width:22px;
+      height:22px;
+      border-radius:7px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:#edf3fb;
+      color:var(--navy);
+      font-size:12px;
+      flex:0 0 auto;
+    }
+    .partner-pill span:last-child{
+      font-size:11px;
+      line-height:1.2;
+      font-weight:700;
+      color:#46576f;
+    }
+    .partners-copy .section-kicker .line{
+      width:28px;
+    }
+
+    /* News */
+    .news{
+      background:#fff;
+      padding:88px 0 94px;
+      border-top:1px solid rgba(18,39,78,.06);
+    }
+    .news-head{
+      text-align:center;
+      max-width:860px;
+      margin:0 auto;
+    }
+    .news-head h2{
+      margin:12px 0 0;
+      font-size:clamp(2.2rem, 3.7vw, 4rem);
+      line-height:.98;
+      font-weight:700;
+      color:var(--navy);
+      letter-spacing:-0.05em;
+    }
+    .news-head p{
+      margin:14px auto 0;
+      max-width:760px;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.8;
+    }
+    .news-action{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:24px;
+      padding:12px 18px;
+      border-radius:8px;
+      border:1px solid rgba(18,39,78,.14);
+      background:#fff;
+      color:var(--navy);
+      font-size:13px;
+      font-weight:800;
+      box-shadow:0 10px 24px rgba(15,23,42,.05);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .news-action:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 28px rgba(15,23,42,.08);
+    }
+    .news-grid{
+      margin-top:42px;
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+    }
+    .news-card{
+      background:var(--card);
+      border:1px solid #e4ebf3;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 12px 34px rgba(15,23,42,.06);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .news-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 40px rgba(15,23,42,.1);
+    }
+    .news-image{
+      position:relative;
+      height:210px;
+      overflow:hidden;
+    }
+    .news-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transform:scale(1.02);
+    }
+    .news-image::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(10,20,35,.02), rgba(10,20,35,.22));
+    }
+    .news-content{
+      padding:20px 20px 22px;
+    }
+    .news-meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#7c8a9c;
+    }
+    .news-meta .type{
+      color:var(--teal);
+    }
+    .news-card h3{
+      margin:12px 0 0;
+      font-size:1.16rem;
+      line-height:1.35;
+      font-weight:800;
+      color:var(--navy);
+      letter-spacing:-0.03em;
+    }
+    .news-card p{
+      margin:10px 0 0;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.8;
+    }
+    .news-link{
+      display:inline-flex;
+      margin-top:16px;
+      color:var(--navy);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    /* Footer */
+    .footer{
+      background:#0f2244;
+      color:#dfe8f4;
+      padding:38px 0 30px;
+    }
+    .footer-inner{
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr .9fr;
+      gap:36px;
+      align-items:flex-start;
+    }
+    .footer-brand{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .footer-brand .logo{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff 0 11%, transparent 12%),
+                 linear-gradient(135deg, #fff, #dfe9ff);
+      flex:0 0 auto;
+      opacity:.95;
+      position:relative;
+    }
+    .footer-brand .logo:after{
+      content:"";
+      position:absolute;
+      inset:7px;
+      border-radius:50%;
+      border:2px solid #0f2244;
+      border-right-color:transparent;
+      transform:rotate(20deg);
+      opacity:.75;
+    }
+    .footer-brand h3{
+      margin:0;
+      font-size:13px;
+      line-height:1.05;
+      letter-spacing:.02em;
+      color:#fff;
+      text-transform:uppercase;
+    }
+    .footer p{
+      margin:16px 0 0;
+      font-size:12px;
+      line-height:1.8;
+      color:#bfd0e4;
+      max-width:280px;
+    }
+    .footer-quote{
+      margin-top:12px;
+      color:#f58231;
+      font-style:italic;
+      font-size:12px;
+      font-weight:700;
+      max-width:280px;
+    }
+    .footer h4{
+      margin:0 0 16px;
+      color:#fff;
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .footer-links{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      font-size:12px;
+      color:#bfd0e4;
+    }
+    .footer-links a:hover{color:#fff}
+    .contact-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:12px;
+      color:#bfd0e4;
+      margin-bottom:12px;
+      word-break:break-word;
+    }
+    .contact-icon{
+      width:15px;
+      height:15px;
+      flex:0 0 auto;
+      opacity:.9;
+    }
+    .socials{
+      display:flex;
+      gap:8px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .social{
+      width:28px;
+      height:28px;
+      border-radius:6px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+    }
+    .footer-bottom{
+      margin-top:24px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      font-size:11px;
+      color:#8fa5bf;
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px){
+      .nav{display:none}
+      .nav-toggle{display:inline-flex}
+      .header-actions{
+        min-width:0;
+        gap:8px;
+      }
+      .programs-grid,
+      .values-grid,
+      .story-grid,
+      .about-grid,
+      .footer-inner,
+      .partners-grid{
+        grid-template-columns:1fr;
+      }
+      .about-grid,
+      .story-grid,
+      .partners-grid{
+        gap:36px;
+      }
+      .values-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .news-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .partners-pill-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .brand{min-width:0}
+      .footer p,
+      .footer-quote{max-width:none}
+      .programs-grid,
+      .values-grid,
+      .news-grid{
+        gap:16px;
+      }
+      .program-card,
+      .value-card,
+      .news-card{
+        min-height:auto;
+      }
+    }
+
+    @media (max-width: 820px){
+      .container{width:min(1180px,calc(100% - 24px))}
+      .header-inner{
+        padding:14px 0;
+        flex-wrap:wrap;
+        align-items:center;
+      }
+      .header-actions{
+        width:auto;
+        justify-content:flex-end;
+        margin-left:auto;
+      }
+      .hero-grid{
+        padding:42px 0 34px;
+        min-height:calc(100vh - 74px);
+      }
+      .hero h1{
+        font-size:clamp(3rem,10vw,4.9rem);
+      }
+      .hero p{
+        max-width:100%;
+        font-size:15px;
+      }
+      .hero-stats{
+        gap:14px 20px;
+      }
+
+      .about,
+      .programs,
+      .story{
+        padding:72px 0;
+      }
+      .values{
+        padding:76px 0 86px;
+      }
+      .partners-main{
+        padding:72px 0 0;
+      }
+      .news{
+        padding:72px 0 80px;
+      }
+
+      .values-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .programs-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .news-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .partners-strip{
+        grid-template-columns:repeat(2,1fr);
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:120px;
+      }
+      .partners-pill-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .footer-inner{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .program-image{
+        height:156px;
+      }
+      .story-badge{
+        left:10px;
+        top:10px;
+      }
+      .years-card{
+        right:18px;
+      }
+      .footer{
+        padding:34px 0 24px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .container{width:min(1180px,calc(100% - 20px))}
+      .brand{
+        min-width:0;
+      }
+      .brand-name strong{
+        font-size:12px;
+      }
+      .brand-name span{
+        font-size:10px;
+      }
+      .header-inner{
+        gap:12px;
+      }
+      .header-actions{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+      }
+      .nav-toggle{
+        margin-left:auto;
+      }
+
+      .hero-grid{
+        padding:32px 0 28px;
+      }
+      .hero h1{
+        font-size:clamp(2.8rem,12vw,4.6rem);
+      }
+      .hero p{
+        font-size:14px;
+        line-height:1.85;
+      }
+      .hero-actions .btn,
+      .partners-cta,
+      .news-action{
+        width:100%;
+      }
+
+      .about,
+      .programs,
+      .story,
+      .values,
+      .partners,
+      .news{
+        padding-left:0;
+        padding-right:0;
+      }
+
+      .about-grid,
+      .programs-grid,
+      .values-grid,
+      .story-grid,
+      .news-grid,
+      .partners-grid,
+      .footer-inner,
+      .partners-pill-grid{
+        grid-template-columns:1fr;
+      }
+
+      .about{
+        padding-top:64px;
+        padding-bottom:64px;
+      }
+      .programs{
+        padding-top:64px;
+        padding-bottom:48px;
+      }
+      .values{
+        padding-top:64px;
+        padding-bottom:72px;
+      }
+      .story{
+        padding-top:64px;
+        padding-bottom:64px;
+      }
+      .news{
+        padding-top:64px;
+        padding-bottom:68px;
+      }
+      .partners-main{
+        padding-top:64px;
+      }
+
+      .program-card,
+      .value-card,
+      .news-card,
+      .partner-pill,
+      .story-box,
+      .about-image,
+      .story-image,
+      .partners-image{
+        border-radius:14px;
+      }
+
+      .program-image{
+        height:170px;
+      }
+      .news-image{
+        height:190px;
+      }
+      .partners-strip{
+        grid-template-columns:1fr 1fr;
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:108px;
+      }
+      .years-card{
+        right:14px;
+        bottom:-14px;
+        min-width:100px;
+      }
+
+      .section-title,
+      .values h2,
+      .story-copy h2,
+      .partners-copy h2,
+      .news-head h2{
+        line-height:1;
+      }
+
+      .footer{
+        padding:30px 0 22px;
+      }
+      .footer-inner{
+        gap:28px;
+      }
+      .footer-brand{
+        max-width:none;
+      }
+      .footer p,
+      .footer-quote{
+        max-width:none;
+      }
+      .socials{
+        margin-top:12px;
+      }
+      .mobile-drawer{
+        width:min(92vw, 360px);
+      }
+    }
+    .brand{
+  display:flex;
+  align-items:center;
+  min-width:250px;
+  text-decoration:none;
+}
+
+.brand-image{
+  display:block;
+  width:auto;
+  height:62px;       /* adjust as needed */
+  max-width:100%;
+  object-fit:contain;
+}
+.footer-brand{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.footer-brand-image{
+  display:block;
+  width:auto;
+  height:62px;   /* adjust to suit your footer */
+  max-width:100%;
+  object-fit:contain;
+}
+.mobile-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  height:100vh;
+  width:min(88vw, 360px);
+  background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);
+  border-left:1px solid rgba(255,255,255,.08);
+  box-shadow:-18px 0 44px rgba(7,12,20,.22);
+  transform:translateX(100%);
+  transition:transform .28s ease;
+  z-index:60;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+}
+
+.mobile-drawer.open{
+  transform:translateX(0);
+}
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:16px;
+}
+
+.drawer-brand{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  text-decoration:none;
+}
+
+.drawer-brand-image{
+  display:block;
+  width:auto;
+  height:44px;   /* adjust as needed */
+  max-width:100%;
+  object-fit:contain;
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+    <a class="brand" href="index.html" aria-label="Media for Social Impact home">
+  <img src="logo.png" alt="Media for Social Impact MSI Programs" class="brand-image">
+</a>
+
+      <nav class="nav" aria-label="Primary navigation">
+              <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+ <a href="team.html">Team</a>
+        <a href="programs.html">Programs</a>
+         <a href="fellowship.html">Fellowships</a>
+        <a href="partnership.html">Partnerships</a>
+      <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <div class="header-actions">
+
+        <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
+          <span class="bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="drawer-head">
+     <a class="drawer-brand" href="index.html" aria-label="Media for Social Impact home">
+    <img src="logo.png" alt="Media for Social Impact MSI Programs" class="drawer-brand-image">
+  </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Mobile primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+ <a href="team.html">Team</a>
+  <a href="fellowship.html">Fellowships</a>
+        <a href="programs.html">Programs</a>
+        <a href="partnership.html">Partnerships</a>
+        <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="drawer-cta">
+
+      <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+    </div>
+  </aside>
+
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-carousel" id="heroCarousel">
+        <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80');"></div>
+      </div>
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">A Global Non-Profit Organization</div>
+
+          <h1 class="font-display">
+            Amplifying Voices,<br>
+            <span class="accent">Inspiring Change,</span><br>
+            Transforming Communities
+          </h1>
+
+          <p>
+            Media for Social Impact (MSI) leverages media, storytelling, advocacy, and innovation to promote sustainable development, democratic governance, youth empowerment, disability inclusion, and international cooperation.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="programs.html">Explore Programs →</a>
+            <a class="btn btn-light" href="partnership.html">Partner With Us</a>
+          </div>
+
+          <div class="hero-stats">
+            <span><i class="dot"></i>Global Reach</span>
+            <span><i class="dot"></i>Youth Empowerment</span>
+            <span><i class="dot"></i>Storytelling for Change</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-image-wrap">
+          <div class="about-image">
+            <img src="image/one.jpeg" alt="Team discussion" />
+          </div>
+          <div class="years-card">
+            <strong>10+</strong>
+            <small>Years of Impact</small>
+          </div>
+        </div>
+
+        <div class="about-copy">
+          <div class="section-kicker"><span class="line"></span>Who We Are</div>
+          <h2 class="font-display">Media as a Force for Social Transformation</h2>
+          <p>
+            MSI was founded on a simple conviction: media and communication are powerful instruments for education, advocacy, empowerment, and social change.
+          </p>
+          <p>
+            We work at the intersection of journalism, film, digital storytelling, advocacy campaigns, and international exchange. Our programs equip media professionals, youth leaders, policymakers, civil society organizations, and educational institutions with the skills and networks they need to drive meaningful change.
+          </p>
+          <p>
+            From strengthening democratic institutions through informed public discourse to amplifying marginalized voices through digital storytelling, MSI is committed to a world where every community can shape its own narrative.
+          </p>
+          <a class="learn" href="about.html">Learn More About Our Mission →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="programs" id="programs">
+      <div class="container">
+        <div class="programs-head">
+          <div class="section-kicker" style="justify-content:center;"><span class="line"></span>Featured Programs<span class="line"></span></div>
+          <h2 class="section-title font-display">Programs That Drive Impact</h2>
+          <p class="section-subtitle">
+            Each program is designed to equip changemakers with the skills, platforms, and networks needed to create lasting social transformation through media.
+          </p>
+        </div>
+
+        <div class="programs-grid">
+          <article class="program-card">
+            <div class="program-image">
+              <span class="tag orange">Flagship Program</span>
+              <img src="image/two.jpeg" alt="Youth group engaged in media training" />
+            </div>
+            <div class="program-content">
+              <h3>International Youth Media Fellowship &amp; Exchange Program</h3>
+              <p>A transformative international exchange program for emerging media leaders — combining cross-cultural learning, leadership development, hands-on media production, and collaborative storytelling across borders.</p>
+              <div class="pills">
+                <span class="pill">30+ Countries</span>
+                <span class="pill">6-Month Program</span>
+                <span class="pill">Mentorship</span>
+                <span class="pill">Cultural Exchange</span>
+              </div>
+              <a class="program-link" href="#">Learn About the Fellowship →</a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-image">
+              <span class="tag green">Creative Program</span>
+              <img src="image/four.jpeg" alt="Cameraman holding professional shoulder camera on a film production set" />
+            </div>
+            <div class="program-content">
+              <h3>Film for Development Fellowship</h3>
+              <p>Supporting visionary filmmakers and storytellers who use film as a powerful tool for education, advocacy, and social awareness — providing production grants, mentorship, and global distribution platforms.</p>
+              <div class="pills">
+                <span class="pill">Production Grants</span>
+                <span class="pill">Mentorship</span>
+                <span class="pill">Global Screening</span>
+                <span class="pill">Impact Campaigns</span>
+              </div>
+              <a class="program-link" href="programs.html">Explore the Program →</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="center-actions">
+          <a class="btn btn-outline" href="#">View All Programs →</a>
+        </div>
+      </div>
+    </section>
+
+  <section class="partners" id="partners">
+    <div class="partners-strip" aria-hidden="true">
+      <div class="strip-card">
+        <img src="image/photo1.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/photo2.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/photo4.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/photo5.jpeg" alt="" />
+      </div>
+    </div>
+
+    
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+  <section class="ig-section" id="instagram-videos">
+  <div class="container">
+    <div class="ig-head">
+      <div class="section-kicker" style="justify-content:center;">
+        <span class="line"></span>
+        Social Highlights
+        <span class="line"></span>
+      </div>
+
+      <h2 class="section-title font-display">Watch Our Instagram Videos</h2>
+      <p class="section-subtitle">
+        A quick look at our latest moments, stories, and campaign highlights shared on Instagram.
+      </p>
+    </div>
+
+    <div class="ig-grid">
+      <div class="ig-card">
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/BxwxwVIhjns/?igsh=dzA5ZGdweHNqbTFp"
+          data-instgrm-version="14">
+        </blockquote>
+      </div>
+
+      <div class="ig-card">
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/BxuF-ktBd-u/?igsh=MXZidjZiMm5yYmJ4Mg=="
+          data-instgrm-version="14">
+        </blockquote>
+      </div>
+
+      <div class="ig-card">
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/BxtvrychCb-/?igsh=d3hyZXpiNXI3OG10"
+          data-instgrm-version="14">
+        </blockquote>
+      </div>
+
+      <div class="ig-card">
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/p/BxtwYRThd1s/?igsh=MXhuems2eDhxMWx2ag=="
+          data-instgrm-version="14">
+        </blockquote>
+      </div>
+
+      <!-- Optional 5th video -->
+      <!--
+      <div class="ig-card">
+        <blockquote
+          class="instagram-media"
+          data-instgrm-permalink="https://www.instagram.com/reel/VIDEO_LINK_5/"
+          data-instgrm-version="14">
+        </blockquote>
+      </div>
+      -->
+    </div>
+  </div>
+</section>
+
+<style>
+  .ig-section{
+    padding: 90px 0;
+    background: #f7f9fc;
+  }
+
+  .ig-head{
+    text-align: center;
+    max-width: 920px;
+    margin: 0 auto 34px;
+  }
+
+  .ig-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    align-items: start;
+  }
+
+  .ig-card{
+    background: #fff;
+    border: 1px solid #e4ebf3;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 34px rgba(15, 23, 42, .06);
+    padding: 10px;
+  }
+
+  .ig-card blockquote{
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .ig-card iframe{
+    width: 100% !important;
+    border-radius: 14px !important;
+  }
+
+  @media (max-width: 1100px){
+    .ig-grid{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 820px){
+    .ig-section{
+      padding: 72px 0;
+    }
+
+    .ig-grid{
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 640px){
+    .ig-section{
+      padding: 64px 0;
+    }
+
+    .ig-card{
+      padding: 8px;
+      border-radius: 14px;
+    }
+
+    .ig-head .section-title{
+      font-size: clamp(2.1rem, 8vw, 3rem);
+    }
+
+    .ig-head .section-subtitle{
+      font-size: 13px;
+      line-height: 1.7;
+    }
+  }
+</style>
+
+<script async src="https://www.instagram.com/embed.js"></script>
+    <section class="values" id="values">
+      <div class="container">
+        <div class="values-head">
+          <div class="section-kicker" style="justify-content:center;"><span class="line"></span>Why MSI<span class="line"></span></div>
+          <h2 class="font-display">Guided by Values, <span class="accent">Driven by Purpose</span></h2>
+          <p>Six core principles that shape every program, partnership, and story we tell.</p>
+        </div>
+
+        <div class="values-grid">
+          <article class="value-card">
+            <div class="bar green"></div>
+            <h3>Integrity</h3>
+            <p>We uphold the highest ethical standards in our journalism, advocacy, and partnerships — transparency and truth are non-negotiable.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar teal"></div>
+            <h3>Inclusion</h3>
+            <p>Every voice deserves to be heard. We actively center marginalized communities and ensure accessibility shapes everything we create.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar orange"></div>
+            <h3>Innovation</h3>
+            <p>We embrace emerging media technologies and creative storytelling methods to meet the evolving challenges of social change communication.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar blue"></div>
+            <h3>Collaboration</h3>
+            <p>Lasting change is built together. We forge deep partnerships across sectors, borders, and communities to multiply our collective impact.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar purple"></div>
+            <h3>Excellence</h3>
+            <p>From our training programs to our productions, we pursue the highest quality in everything we do — because the communities we serve deserve nothing less.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar yellow"></div>
+            <h3>Empowerment</h3>
+            <p>We don't just tell stories — we equip people with the tools, skills, and platforms to tell their own and shape their own futures.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="story" id="story">
+      <div class="container story-grid">
+        <div class="story-media">
+          <div class="story-badge">
+            <strong>200+</strong>
+            <small>Stories Amplified</small>
+          </div>
+          <div class="story-image">
+            <img src="image/five.jpeg" alt="Storytelling and advocacy illustration" />
+          </div>
+        </div>
+
+        <div class="story-copy">
+          <div class="section-kicker"><span class="line"></span>Impact Story</div>
+          <h2 class="font-display">Voices That Changed Policy</h2>
+
+          <div class="story-box">
+            <h3>“From Community Radio to National Reform”</h3>
+            <p>
+              When a group of young journalists in West Africa completed MSI’s Digital Storytelling Program, they launched a community radio series on disability inclusion that reached over 500,000 listeners. Their reporting directly influenced new accessibility legislation and sparked a national conversation about inclusive development — proving that when local voices are amplified, systemic change follows.
+            </p>
+          </div>
+
+          <p class="body">
+            This is one of hundreds of stories that demonstrate MSI’s theory of change: equip passionate storytellers with skills and platforms, and they will transform their communities from within.
+          </p>
+
+          <a class="story-link" href="contact.html">Read More Impact Stories →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="partners" id="partners">
+    <div class="partners-strip" aria-hidden="true">
+      <div class="strip-card">
+        <img src="image/six.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/seven.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/eaight.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/nine.jpeg" alt="" />
+      </div>
+    </div>
+
+    <div class="container partners-main">
+      <div class="partners-grid">
+        <div class="partners-copy">
+          <div class="section-kicker">
+            <span class="line"></span>
+            Partners &amp; Collaboration
+          </div>
+
+          <h2 class="font-display">Change Happens<br />Together</h2>
+
+          <p>
+            MSI serves as a connector and collaboration platform — bringing together international organizations,
+            development agencies, government institutions, academic partners, media organizations, civil society,
+            foundations, and corporate partners around shared goals. Together, we multiply resources, expertise, and
+            reach to create impact no single organization could achieve alone.
+          </p>
+
+          <a class="partners-cta" href="partnership.html">Explore Partnership Opportunities →</a>
+        </div>
+
+        <div class="partners-visual">
+          <div class="partners-image">
+            <img src="image/eleven.jpeg" alt="A global network of collaboration" />
+            <div class="partners-image-caption">A Global Network of Collaboration</div>
+          </div>
+
+          <div class="partners-pill-grid">
+            <div class="partner-pill"><span class="ico">🌐</span><span>International Organizations</span></div>
+            <div class="partner-pill"><span class="ico">🏛</span><span>Government Institutions</span></div>
+            <div class="partner-pill"><span class="ico">🎓</span><span>Academic Institutions</span></div>
+            <div class="partner-pill"><span class="ico">📺</span><span>Media Organizations</span></div>
+            <div class="partner-pill"><span class="ico">👥</span><span>Civil Society</span></div>
+            <div class="partner-pill"><span class="ico">❤</span><span>Foundations &amp; Philanthropies</span></div>
+            <div class="partner-pill"><span class="ico">🏢</span><span>Corporate Partners</span></div>
+            <div class="partner-pill"><span class="ico">✦</span><span>Development Agencies</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news" id="news">
+    <div class="container">
+      <div class="news-head">
+        <div class="section-kicker" style="justify-content:center;"><span class="line"></span>News &amp; Insights<span class="line"></span></div>
+        <h2 class="font-display">Stories, Research &amp; Thought Leadership</h2>
+        <p>View All Articles</p>
+        <a class="news-action" href="news.html">View All Articles →</a>
+      </div>
+
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-image">
+            <img src="image/nine.jpeg" alt="Community media and democratic governance" />
+          </div>
+          <div class="news-content">
+            <div class="news-meta"><span class="type">Research</span><span>May 2026</span></div>
+            <h3>The Role of Community Media in Strengthening Democratic Governance</h3>
+            <p>New MSI research examines how grassroots media initiatives across 15 countries are reshaping civic participation and holding institutions accountable.</p>
+            <a class="news-link" href="#">Read Article →</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-image">
+            <img src="image/eleven.jpeg" alt="Film making and storytelling" />
+          </div>
+          <div class="news-content">
+            <div class="news-meta"><span class="type">Success Story</span><span>April 2026</span></div>
+            <h3>From Fellow to Filmmaker: How One Story Sparked a National Conversation</h3>
+            <p>An MSI Film for Development fellow's documentary on inclusive education led to policy changes and a nationwide awareness campaign.</p>
+            <a class="news-link" href="news.html">Read Story →</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-image">
+            <img src="image/twelve.jpeg" alt="Thought leadership and international exchange" />
+          </div>
+          <div class="news-content">
+            <div class="news-meta"><span class="type">Thought Leadership</span><span>March 2026</span></div>
+            <h3>Media Diplomacy in a Fractured World: Building Bridges Across Borders</h3>
+            <p>MSI's Director of Programs reflects on the growing importance of intercultural media exchange in an era of global polarization.</p>
+            <a class="news-link" href="news.html">Read Insight →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+         <div class="footer-brand">
+  <img src="logo.png" alt="Media for Social Impact" class="footer-brand-image">
+</div>
+          <p>
+            A global non-profit organization leveraging media, storytelling, advocacy, and innovation to promote sustainable development, democratic governance, youth empowerment, and social transformation worldwide.
+          </p>
+          <div class="footer-quote">“Amplifying Voices, Inspiring Change, Transforming Communities”</div>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="#about">About Us</a>
+            <a href="#programs">Programs</a>
+            <a href="#values">Impact Areas</a>
+            <a href="#story">Fellowships</a>
+            <a href="#contact">Partnerships</a>
+            <a href="#news">News &amp; Insights</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Get Involved</h4>
+          <div class="footer-links">
+            <a href="#contact">Get Involved</a>
+            <a href="#contact">Donate</a>
+            <a href="#contact">Volunteer</a>
+            <a href="#contact">Apply for Fellowship</a>
+            <a href="#contact">Become a Partner</a>
+            <a href="#contact">Contact Us</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Connect</h4>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            <span>info@mediaforsocialimpact.org</span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.2 19.2 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.2 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.12.89.33 1.75.62 2.58a2 2 0 0 1-.45 2.11L8 9.5a16 16 0 0 0 6.5 6.5l1.09-1.24a2 2 0 0 1 2.11-.45c.83.29 1.69.5 2.58.62A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Partnerships</span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>mediaforsocialimpact.org</span>
+          </div>
+
+          <div class="socials" aria-label="Social media links">
+            <span class="social">f</span>
+            <span class="social">x</span>
+            <span class="social">◎</span>
+            <span class="social">in</span>
+            <span class="social">▶</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 Media for Social Impact. All rights reserved.
+      </div>
+    </div>
+  </footer>
+<style>
+  @media (max-width: 640px) {
+  .container {
+    width: calc(100% - 20px);
+  }
+
+  .header-inner {
+    padding: 12px 0;
+    gap: 10px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+
+  .hero-grid {
+    padding: 30px 0 24px;
+    min-height: calc(100vh - 74px);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.6rem, 11vw, 4.2rem);
+    line-height: 0.95;
+  }
+
+  .hero p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-actions .btn,
+  .partners-cta,
+  .news-action {
+    width: 100%;
+  }
+
+  .about,
+  .programs,
+  .story,
+  .values,
+  .partners,
+  .news {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .about-grid,
+  .story-grid,
+  .partners-grid,
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  /* 2 by 2 layout for bordered card sections */
+  .programs-grid,
+  .values-grid,
+  .news-grid,
+  .partners-pill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .programs {
+    padding-top: 60px;
+    padding-bottom: 44px;
+  }
+
+  .values {
+    padding-top: 60px;
+    padding-bottom: 68px;
+  }
+
+  .story {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .news {
+    padding-top: 60px;
+    padding-bottom: 64px;
+  }
+
+  .partners-main {
+    padding-top: 60px;
+  }
+
+  /* stronger borders on phone */
+  .program-card,
+  .value-card,
+  .news-card,
+  .partner-pill,
+  .story-box,
+  .about-image,
+  .story-image,
+  .partners-image {
+    border-radius: 14px;
+    border-width: 1.2px;
+    border-color: #d8e2ee;
+  }
+
+  .program-card,
+  .value-card,
+  .news-card {
+    min-height: 100%;
+  }
+
+  .program-image {
+    height: 145px;
+  }
+
+  .news-image {
+    height: 150px;
+  }
+
+  .program-content {
+    padding: 14px 12px 16px;
+  }
+
+  .program-content h3 {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .program-content p,
+  .value-card p,
+  .news-card p,
+  .story-box p,
+  .about p,
+  .partners-copy p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .value-card {
+    padding: 16px 12px 14px;
+  }
+
+  .value-card h3 {
+    font-size: 14px;
+  }
+
+  .news-content {
+    padding: 14px 12px 16px;
+  }
+
+  .news-card h3 {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .partner-pill {
+    padding: 12px 10px;
+    min-height: 48px;
+  }
+
+  .partner-pill span:last-child {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .partners-strip {
+    grid-template-columns: repeat(2, 1fr);
+    height: auto;
+  }
+
+  .partners-strip .strip-card {
+    min-height: 100px;
+  }
+
+  .years-card {
+    right: 12px;
+    bottom: -12px;
+    min-width: 92px;
+    padding: 12px 14px 10px;
+  }
+
+  .years-card strong {
+    font-size: 28px;
+  }
+
+  .story-badge {
+    left: 10px;
+    top: 10px;
+  }
+
+  .section-title,
+  .values h2,
+  .story-copy h2,
+  .partners-copy h2,
+  .news-head h2 {
+    line-height: 1;
+  }
+
+  .footer {
+    padding: 28px 0 22px;
+  }
+
+  .socials {
+    margin-top: 12px;
+  }
+
+  .mobile-drawer {
+    width: min(92vw, 360px);
+  }
+}
+
+@media (max-width: 420px) {
+  .programs-grid,
+  .values-grid,
+  .news-grid,
+  .partners-pill-grid {
+    gap: 10px;
+  }
+
+  .program-image {
+    height: 132px;
+  }
+
+  .news-image {
+    height: 138px;
+  }
+
+  .program-content,
+  .news-content,
+  .value-card,
+  .partner-pill {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .program-content h3,
+  .news-card h3,
+  .value-card h3 {
+    font-size: 13px;
+  }
+}
+</style>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.hero-slide'));
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4000);
+
+    const navToggle = document.getElementById('navToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      mobileDrawer.classList.add('open');
+      drawerBackdrop.classList.add('show');
+      document.body.classList.add('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'false');
+      navToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      mobileDrawer.classList.remove('open');
+      drawerBackdrop.classList.remove('show');
+      document.body.classList.remove('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'true');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    navToggle.addEventListener('click', () => {
+      if (mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    mobileDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1100 && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+  </script>
+</body>
+</html>

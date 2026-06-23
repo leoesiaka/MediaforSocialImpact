@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media for Social Impact | Gallery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700;800&display=swap');
+
+    :root{
+      --navy:#11284f;
+      --navy-2:#0b1e3b;
+      --blue:#173a72;
+      --teal:#2a8d8d;
+      --orange:#f58231;
+      --bg:#f7f9fc;
+      --text:#5b6878;
+      --muted:#7f8b99;
+      --border:#e4ebf3;
+      --card:#ffffff;
+      --shadow:0 16px 40px rgba(14, 24, 44, .08);
+      --shadow-strong:0 24px 70px rgba(7, 12, 20, .18);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--navy);
+      background:var(--bg);
+    }
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto;}
+    .font-display{font-family:"Cormorant Garamond",Georgia,serif;letter-spacing:-.04em;}
+
+    .section-kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);
+    }
+    .section-kicker .line{width:34px;height:1px;background:currentColor;opacity:.9;}
+
+    .section-title{
+      margin:12px 0 0;
+      font-size:clamp(2.4rem,4vw,4.1rem);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.05em;
+      color:var(--navy);
+    }
+    .section-subtitle{
+      margin:14px auto 0;
+      max-width:760px;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:11px 16px;border-radius:8px;border:1px solid transparent;
+      font-size:13px;font-weight:700;line-height:1;transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;white-space:nowrap;cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--orange);color:#fff;box-shadow:0 10px 22px rgba(245,130,49,.18);}
+    .btn-dark{background:var(--blue);color:#fff;}
+    .btn-light{background:#fff;color:var(--navy);border-color:#fff;}
+
+    /* Header */
+    .header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #edf1f7;}
+    .header-inner{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px;}
+    .nav{display:flex;align-items:center;justify-content:center;gap:28px;flex:1;font-size:13px;font-weight:600;color:#5e6c7d;white-space:nowrap;}
+    .nav a:hover{color:var(--navy)}
+    .header-actions{display:flex;align-items:center;gap:10px;min-width:220px;justify-content:flex-end;}
+    .nav-toggle{display:none;width:46px;height:46px;border-radius:12px;border:1px solid #d8e1ec;background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.05);cursor:pointer;align-items:center;justify-content:center;padding:0;flex:0 0 auto;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;}
+    .nav-toggle:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(15,23,42,.08);border-color:#c7d3e3;}
+    .nav-toggle .bars{width:18px;height:12px;position:relative;display:block;}
+    .nav-toggle .bars span{position:absolute;left:0;width:100%;height:2px;border-radius:999px;background:var(--navy);transition:.22s ease;}
+    .nav-toggle .bars span:nth-child(1){top:0}.nav-toggle .bars span:nth-child(2){top:5px}.nav-toggle .bars span:nth-child(3){top:10px}
+
+    .drawer-backdrop{position:fixed;inset:0;background:rgba(8,14,24,.50);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:59;}
+    .drawer-backdrop.show{opacity:1;pointer-events:auto;}
+
+    .mobile-drawer{position:fixed;top:0;right:0;height:100vh;width:min(88vw, 360px);background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);border-left:1px solid rgba(255,255,255,.08);box-shadow:-18px 0 44px rgba(7,12,20,.22);transform:translateX(100%);transition:transform .28s ease;z-index:60;padding:18px;display:flex;flex-direction:column;}
+    .mobile-drawer.open{transform:translateX(0)}
+    .drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:16px;}
+    .drawer-brand{display:flex;align-items:center;min-width:0;text-decoration:none;}
+    .drawer-brand-image{display:block;width:auto;height:44px;max-width:100%;object-fit:contain;}
+    .drawer-close{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .2s ease, border-color .2s ease, transform .2s ease;}
+    .drawer-close:hover{transform:translateY(-1px);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);}
+    .drawer-nav{display:grid;gap:8px;margin-top:4px;}
+    .drawer-nav a{color:#fff;padding:14px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:14px;font-weight:700;transition:transform .2s ease, background .2s ease, border-color .2s ease;}
+    .drawer-nav a:hover{transform:translateX(-2px);background:rgba(245,130,49,.10);border-color:rgba(245,130,49,.22);}
+    .drawer-cta{margin-top:auto;padding-top:18px;border-top:1px solid rgba(255,255,255,.10);display:grid;gap:10px;}
+    .drawer-cta .btn{width:100%;border-radius:12px;padding:13px 14px;}
+
+    /* Hero */
+    .hero{position:relative;min-height:460px;overflow:hidden;color:#fff;background:linear-gradient(180deg,#14315f 0%, #0f2244 100%);}
+    .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center;transform:scale(1.03);filter:saturate(1.05);opacity:.32;}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(10, 24, 46, .42), rgba(10, 24, 46, .76));}
+    .hero-grid{position:relative;z-index:2;min-height:460px;display:grid;align-items:center;padding:56px 0 44px;}
+    .hero-copy{max-width:920px;}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.9);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;backdrop-filter:blur(4px);}
+    .hero h1{margin:16px 0 0;max-width:820px;font-size:clamp(3.2rem,5.8vw,5.9rem);line-height:.92;font-weight:700;letter-spacing:-.06em;}
+    .hero h1 .accent{color:var(--orange)}
+    .hero p{margin:20px 0 0;max-width:860px;font-size:16px;line-height:1.95;color:rgba(255,255,255,.92);}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
+    .hero-actions .btn{padding:14px 18px;border-radius:8px}
+    .hero-stats{margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.10);display:flex;flex-wrap:wrap;gap:28px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.86);}
+    .hero-stats span{display:inline-flex;align-items:center;gap:8px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);flex:0 0 auto;}
+
+    /* Gallery intro */
+    .gallery-intro{padding:84px 0 46px;background:#fff;}
+    .gallery-intro-head{text-align:center;max-width:900px;margin:0 auto;}
+
+    /* Image gallery */
+    .image-gallery{padding:0 0 88px;background:#fff;}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+    .gallery-card{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 12px 34px rgba(15,23,42,.06);transition:transform .2s ease, box-shadow .2s ease;}
+    .gallery-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(15,23,42,.10);}
+    .gallery-media{aspect-ratio:1 / 1;overflow:hidden;background:#dfe8f2;}
+    .gallery-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);}
+    .gallery-page-wrap{display:flex;justify-content:center;margin-top:26px;}
+    .pagination{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;}
+    .page-btn{min-width:42px;height:42px;padding:0 12px;border-radius:12px;border:1px solid #dbe4ef;background:#fff;color:var(--navy);font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 10px 20px rgba(15,23,42,.04);transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;}
+    .page-btn:hover{transform:translateY(-1px)}
+    .page-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+    .page-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+
+    /* Instagram videos */
+    .videos-section{padding:86px 0 94px;background:#f7f9fc;border-top:1px solid rgba(18,39,78,.06);}
+    .videos-head{text-align:center;max-width:900px;margin:0 auto 34px;}
+    .videos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;}
+    .video-card{background:#fff;border:1px solid #e4ebf3;border-radius:18px;overflow:hidden;box-shadow:0 12px 34px rgba(15,23,42,.06);padding:10px;}
+    .video-card blockquote{margin:0 !important;width:100% !important;min-width:0 !important;}
+    .video-card iframe{width:100% !important;border-radius:14px !important;}
+
+    /* Footer */
+    .footer{background:#0f2244;color:#dfe8f4;padding:38px 0 30px;}
+    .footer-inner{display:grid;grid-template-columns:1.2fr .8fr .8fr .9fr;gap:36px;align-items:flex-start;}
+    .footer-brand{display:flex;align-items:flex-start;gap:12px;}
+    .footer-brand-image{display:block;width:auto;height:62px;max-width:100%;object-fit:contain;}
+    .footer p{margin:16px 0 0;font-size:12px;line-height:1.8;color:#bfd0e4;max-width:280px;}
+    .footer-quote{margin-top:12px;color:#f58231;font-style:italic;font-size:12px;font-weight:700;max-width:280px;}
+    .footer h4{margin:0 0 16px;color:#fff;font-size:12px;letter-spacing:.06em;text-transform:uppercase;}
+    .footer-links{display:flex;flex-direction:column;gap:12px;font-size:12px;color:#bfd0e4;}
+    .footer-links a:hover{color:#fff}
+    .contact-item{display:flex;align-items:center;gap:10px;font-size:12px;color:#bfd0e4;margin-bottom:12px;word-break:break-word;}
+    .contact-icon{width:15px;height:15px;flex:0 0 auto;opacity:.9;}
+    .socials{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+    .social{width:28px;height:28px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:#fff;font-size:12px;font-weight:800;}
+    .footer-bottom{margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:#8fa5bf;text-align:center;}
+
+    /* Responsive */
+    @media (max-width: 1100px){
+      .nav{display:none}
+      .nav-toggle{display:inline-flex}
+      .header-actions{min-width:0;gap:8px}
+      .footer-inner{grid-template-columns:1fr 1fr}
+      .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .videos-grid{grid-template-columns:1fr 1fr}
+    }
+
+    @media (max-width: 820px){
+      .container{width:min(1180px,calc(100% - 24px))}
+      .header-inner{padding:14px 0;flex-wrap:wrap;align-items:center}
+      .header-actions{width:auto;justify-content:flex-end;margin-left:auto}
+      .hero-grid{padding:42px 0 34px;min-height:460px}
+      .hero h1{font-size:clamp(3rem,10vw,4.9rem)}
+      .hero p{max-width:100%;font-size:15px}
+      .hero-stats{gap:14px 20px}
+      .gallery-intro{padding-top:66px}
+      .videos-section{padding-top:72px;padding-bottom:80px}
+      .gallery-grid,.videos-grid{grid-template-columns:1fr 1fr}
+      .footer{padding:34px 0 24px}
+    }
+
+    @media (max-width: 640px){
+      .container{width:min(1180px,calc(100% - 20px))}
+      .header-inner{gap:12px}
+      .header-actions{width:100%;justify-content:flex-start;flex-wrap:wrap}
+      .nav-toggle{margin-left:auto}
+      .hero-grid{padding:32px 0 28px}
+      .hero h1{font-size:clamp(2.8rem,12vw,4.6rem)}
+      .hero p{font-size:14px;line-height:1.85}
+      .hero-actions .btn,.btn,.page-btn{width:auto}
+      .gallery-grid,.videos-grid,.footer-inner{grid-template-columns:1fr}
+      .gallery-grid{gap:14px}
+      .videos-grid{gap:14px}
+      .gallery-card,.video-card{border-radius:14px}
+      .gallery-page-wrap{margin-top:22px}
+      .page-btn{min-width:38px;height:40px;padding:0 10px}
+      .footer{padding:30px 0 22px}
+      .mobile-drawer{width:min(92vw, 360px)}
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Media for Social Impact home">
+        <img src="logo.png" alt="Media for Social Impact MSI Programs" class="brand-image" style="display:block;width:auto;height:62px;max-width:100%;object-fit:contain;">
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="team.html">Team</a>
+        <a href="programs.html">Programs</a>
+        <a href="fellowship.html">Fellowships</a>
+        <a href="partnership.html">Partnerships</a>
+      <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
+          <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="drawer-head">
+      <a class="drawer-brand" href="index.html" aria-label="Media for Social Impact home">
+        <img src="logo.png" alt="Media for Social Impact MSI Programs" class="drawer-brand-image">
+      </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Mobile primary navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="team.html">Team</a>
+      <a href="fellowship.html">Fellowships</a>
+      <a href="programs.html">Programs</a>
+      <a href="partnership.html">Partnerships</a>
+          <a href="gallary.html">Media Gallery</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="drawer-cta">
+      <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+    </div>
+  </aside>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Gallery</div>
+          <h1 class="font-display">Capturing <span class="accent">Moments,</span><br>Stories &amp; Impact</h1>
+          <p>Browse our image archive and Instagram video highlights from MSI events, campaigns, programs, and community moments.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#images">Browse Images →</a>
+            <a class="btn btn-light" href="#videos">Watch Videos</a>
+          </div>
+          <div class="hero-stats">
+            <span><i class="dot"></i>30 Images</span>
+            <span><i class="dot"></i>10 Instagram Videos</span>
+            <span><i class="dot"></i>MSI Moments</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-intro" id="images">
+      <div class="container gallery-intro-head">
+        <div class="section-kicker" style="justify-content:center;"><span class="line"></span>Photo Gallery<span class="line"></span></div>
+        <h2 class="section-title font-display">A Full Visual Story of MSI</h2>
+        <p class="section-subtitle">Use the 1, 2, 3 controls to move through the 30-image gallery. Each page shows 10 images.</p>
+      </div>
+    </section>
+
+    <section class="image-gallery">
+      <div class="container">
+        <div class="gallery-grid" id="galleryGrid">
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo1.jpeg" alt="MSI gallery image 1"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo2.jpeg" alt="MSI gallery image 2"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/one.jpeg" alt="MSI gallery image 3"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo4.jpeg" alt="MSI gallery image 4"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo5.jpeg" alt="MSI gallery image 5"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo6.jpeg" alt="MSI gallery image 6"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo7.jpeg" alt="MSI gallery image 7"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo8.jpeg" alt="MSI gallery image 8"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/photo9.jpeg" alt="MSI gallery image 9"></div></article>
+          <article class="gallery-card gallery-page" data-page="1"><div class="gallery-media"><img src="image/six.jpeg" alt="MSI gallery image 10"></div></article>
+
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo11.jeg.jpeg" alt="MSI gallery image 11"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo12.jpeg" alt="MSI gallery image 12"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo12jpeg.jpeg" alt="MSI gallery image 13"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo14.jpeg"alt="MSI gallery image 14"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/thirten.jpeg" alt="MSI gallery image 15"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo16.jpeg" alt="MSI gallery image 16"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo17.jpeg" alt="MSI gallery image 17"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo18.jpeg" alt="MSI gallery image 18"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo19.jpeg" alt="MSI gallery image 19"></div></article>
+          <article class="gallery-card gallery-page" data-page="2"><div class="gallery-media"><img src="image/photo20.jpeg" alt="MSI gallery image 20"></div></article>
+
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo21.jpeg" alt="MSI gallery image 21"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo22.jpeg" alt="MSI gallery image 22"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo23.jpeg" alt="MSI gallery image 23"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo24.jpeg" alt="MSI gallery image 24"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo25.jpeg" alt="MSI gallery image 25"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo26.jpeg" alt="MSI gallery image 26"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo27.jpeg" alt="MSI gallery image 27"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo28.jpeg" alt="MSI gallery image 28"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/photo29.jpeg" alt="MSI gallery image 29"></div></article>
+          <article class="gallery-card gallery-page" data-page="3"><div class="gallery-media"><img src="image/WhatsApp Image 2026-06-20 at 7.020.56 PM.jpeg" alt="MSI gallery image 30"></div></article>
+        </div>
+
+        <div class="gallery-page-wrap">
+          <div class="pagination" aria-label="Image gallery pagination">
+            <button class="page-btn" id="prevPage" aria-label="Previous page">‹</button>
+            <button class="page-btn active" data-page-btn="1">1</button>
+            <button class="page-btn" data-page-btn="2">2</button>
+            <button class="page-btn" data-page-btn="3">3</button>
+            <button class="page-btn" id="nextPage" aria-label="Next page">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="videos-section" id="videos">
+      <div class="container">
+        <div class="videos-head">
+          <div class="section-kicker" style="justify-content:center;"><span class="line"></span>Instagram Videos<span class="line"></span></div>
+          <h2 class="section-title font-display">Watch MSI in Motion</h2>
+          <p class="section-subtitle">Your 10 Instagram posts are embedded below using the links you provided.</p>
+        </div>
+
+        <div class="videos-grid">
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/B0NnjbilSCe/?igsh=MW02YTk1eHZubTdqcA==" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/ByPzrI_hH9v/?img_index=3&igsh=eDAzNDR6d2c3bXU5" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BxwxwVIhjns/?igsh=dzA5ZGdweHNqbTFp" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Bxwx8i4h0jW/?igsh=MTRnOWphNGwxZGl5MQ==" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Bxwx1_khCfW/?igsh=MTVja3kxcjY2YjV5Yg==" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BxuF-ktBd-u/?igsh=MXZidjZiMm5yYmJ4Mg==" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BxtwYRThd1s/?igsh=MXhuems2eDhxMWx2ag==" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Bxtv6MqB57Q/?igsh=cXBvbHJrZmQ5M3pn" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BxtvrychCb-/?igsh=d3hyZXpiNXI3OG10" data-instgrm-version="14"></blockquote></div>
+          <div class="video-card"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/BxhLs-ZBGfN/?igsh=ZnlqejN5Y3NoMzl2" data-instgrm-version="14"></blockquote></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">
+            <img src="logo.png" alt="Media for Social Impact" class="footer-brand-image">
+          </div>
+          <p>A global non-profit organization leveraging media, storytelling, advocacy, and innovation to promote sustainable development, democratic governance, youth empowerment, and social transformation worldwide.</p>
+          <div class="footer-quote">“Amplifying Voices, Inspiring Change, Transforming Communities”</div>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="#images">Gallery</a>
+            <a href="about.html">About Us</a>
+            <a href="programs.html">Programs</a>
+            <a href="fellowship.html">Fellowships</a>
+            <a href="partnership.html">Partnerships</a>
+            <a href="news.html">News &amp; Insights</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Get Involved</h4>
+          <div class="footer-links">
+            <a href="Get_involved.html">Get Involved</a>
+            <a href="#contact">Donate</a>
+            <a href="#contact">Volunteer</a>
+            <a href="#contact">Apply for Fellowship</a>
+            <a href="#contact">Become a Partner</a>
+            <a href="#contact">Contact Us</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Connect</h4>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            <span>info@mediaforsocialimpact.org</span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.2 19.2 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.2 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.12.89.33 1.75.62 2.58a2 2 0 0 1-.45 2.11L8 9.5a16 16 0 0 0 6.5 6.5l1.09-1.24a2 2 0 0 1 2.11-.45c.83.29 1.69.5 2.58.62A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Partnerships</span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>mediaforsocialimpact.org</span>
+          </div>
+
+          <div class="socials" aria-label="Social media links">
+            <span class="social">f</span>
+            <span class="social">x</span>
+            <span class="social">◎</span>
+            <span class="social">in</span>
+            <span class="social">▶</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">© 2026 Media for Social Impact. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      mobileDrawer.classList.add('open');
+      drawerBackdrop.classList.add('show');
+      document.body.classList.add('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'false');
+      navToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      mobileDrawer.classList.remove('open');
+      drawerBackdrop.classList.remove('show');
+      document.body.classList.remove('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'true');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    navToggle.addEventListener('click', () => {
+      if (mobileDrawer.classList.contains('open')) closeDrawer();
+      else openDrawer();
+    });
+    drawerBackdrop.addEventListener('click', closeDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+
+    const pageButtons = Array.from(document.querySelectorAll('[data-page-btn]'));
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-page'));
+    const totalPages = 3;
+    let currentPage = 1;
+
+    function renderGalleryPage(page) {
+      currentPage = Math.max(1, Math.min(totalPages, page));
+
+      galleryItems.forEach(card => {
+        card.style.display = card.dataset.page === String(currentPage) ? 'block' : 'none';
+      });
+
+      pageButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.pageBtn === String(currentPage));
+      });
+
+      prevPageBtn.disabled = currentPage === 1;
+      nextPageBtn.disabled = currentPage === totalPages;
+    }
+
+    pageButtons.forEach(btn => {
+      btn.addEventListener('click', () => renderGalleryPage(Number(btn.dataset.pageBtn)));
+    });
+    prevPageBtn.addEventListener('click', () => renderGalleryPage(currentPage - 1));
+    nextPageBtn.addEventListener('click', () => renderGalleryPage(currentPage + 1));
+
+    renderGalleryPage(1);
+  </script>
+</body>
+</html>

@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fellowships | Media for Social Impact</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700;800&display=swap');
+
+    :root{
+      --navy:#11284f;
+      --navy-2:#0b1e3b;
+      --blue:#173a72;
+      --teal:#2a8d8d;
+      --orange:#f58231;
+      --bg:#f7f9fc;
+      --text:#5b6878;
+      --muted:#7f8b99;
+      --border:#e4ebf3;
+      --card:#ffffff;
+      --shadow:0 16px 40px rgba(14, 24, 44, .08);
+      --shadow-strong:0 24px 70px rgba(7, 12, 20, .18);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--navy);
+      background:var(--bg);
+    }
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    button,input,textarea,select{font:inherit}
+
+    .container{
+      width:min(1180px,calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .font-display{
+      font-family:"Cormorant Garamond",Georgia,serif;
+      letter-spacing:-.04em;
+    }
+
+    .section-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--orange);
+    }
+    .section-kicker .line{
+      width:34px;
+      height:1px;
+      background:currentColor;
+      opacity:.9;
+    }
+
+    .section-title{
+      margin:12px 0 0;
+      font-size:clamp(2.4rem,4vw,4.1rem);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.05em;
+      color:var(--navy);
+    }
+    .section-subtitle{
+      margin:14px auto 0;
+      max-width:760px;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 16px;
+      border-radius:8px;
+      border:1px solid transparent;
+      font-size:13px;
+      font-weight:700;
+      line-height:1;
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:var(--orange);
+      color:#fff;
+      box-shadow:0 10px 22px rgba(245,130,49,.18);
+    }
+    .btn-outline{
+      background:#fff;
+      color:var(--blue);
+      border-color:#cdd8e6;
+    }
+    .btn-dark{
+      background:var(--blue);
+      color:#fff;
+    }
+    .btn-light{
+      background:#fff;
+      color:var(--navy);
+      border:1px solid #dfe7f1;
+    }
+
+    /* Header */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid #edf1f7;
+    }
+    .header-inner{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:250px;
+      font-weight:900;
+      color:var(--navy);
+    }
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff 0 12%, transparent 13%),
+                 linear-gradient(135deg, var(--blue), var(--navy-2));
+      position:relative;
+      box-shadow:0 8px 18px rgba(17,40,79,.18);
+      flex:0 0 auto;
+    }
+    .brand-mark:before{
+      content:"";
+      position:absolute;
+      inset:8px;
+      border-radius:50%;
+      border:2px solid rgba(255,255,255,.9);
+      border-right-color:transparent;
+      transform:rotate(18deg);
+    }
+    .brand-name{
+      display:flex;
+      flex-direction:column;
+      line-height:1.02;
+      font-size:12px;
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .brand-name strong{font-size:13px}
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      flex:1;
+      font-size:13px;
+      font-weight:600;
+      color:#5e6c7d;
+      white-space:nowrap;
+    }
+    .nav a:hover{color:var(--navy)}
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:220px;
+      justify-content:flex-end;
+    }
+
+    .nav-toggle{
+      display:none;
+      width:46px;
+      height:46px;
+      border-radius:12px;
+      border:1px solid #d8e1ec;
+      background:#fff;
+      box-shadow:0 8px 18px rgba(15,23,42,.05);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      flex:0 0 auto;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .nav-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 22px rgba(15,23,42,.08);
+      border-color:#c7d3e3;
+    }
+    .nav-toggle .bars{
+      width:18px;
+      height:12px;
+      position:relative;
+      display:block;
+    }
+    .nav-toggle .bars span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      border-radius:999px;
+      background:var(--navy);
+      transition:.22s ease;
+    }
+    .nav-toggle .bars span:nth-child(1){top:0}
+    .nav-toggle .bars span:nth-child(2){top:5px}
+    .nav-toggle .bars span:nth-child(3){top:10px}
+
+    .drawer-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(8,14,24,.50);
+      backdrop-filter:blur(3px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .22s ease;
+      z-index:59;
+    }
+    .drawer-backdrop.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .mobile-drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100vh;
+      width:min(88vw, 360px);
+      background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);
+      border-left:1px solid rgba(255,255,255,.08);
+      box-shadow:-18px 0 44px rgba(7,12,20,.22);
+      transform:translateX(100%);
+      transition:transform .28s ease;
+      z-index:60;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+    }
+    .mobile-drawer.open{
+      transform:translateX(0);
+    }
+    .drawer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding-bottom:14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      margin-bottom:16px;
+    }
+    .drawer-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .drawer-brand .brand-mark{
+      width:38px;
+      height:38px;
+      flex:0 0 auto;
+    }
+    .drawer-brand .brand-name{
+      color:#fff;
+    }
+    .drawer-brand .brand-name span{
+      color:rgba(255,255,255,.76);
+    }
+    .drawer-close{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      font-size:24px;
+      line-height:1;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition:background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .drawer-close:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.18);
+    }
+    .drawer-nav{
+      display:grid;
+      gap:8px;
+      margin-top:4px;
+    }
+    .drawer-nav a{
+      color:#fff;
+      padding:14px 14px;
+      border-radius:12px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      font-size:14px;
+      font-weight:700;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .drawer-nav a:hover{
+      transform:translateX(-2px);
+      background:rgba(245,130,49,.10);
+      border-color:rgba(245,130,49,.22);
+    }
+    .drawer-cta{
+      margin-top:auto;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:grid;
+      gap:10px;
+    }
+    .drawer-cta .btn{
+      width:100%;
+      border-radius:12px;
+      padding:13px 14px;
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      color:#fff;
+      background:
+        linear-gradient(180deg, rgba(13, 31, 61, .72), rgba(13, 31, 61, .86)),
+        url("https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 16% 24%, rgba(245,130,49,.18), transparent 24%),
+        radial-gradient(circle at 84% 18%, rgba(42,141,141,.16), transparent 22%);
+      pointer-events:none;
+    }
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      min-height:520px;
+      display:grid;
+      align-items:center;
+      padding:62px 0 56px;
+    }
+    .hero-copy{
+      max-width:920px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.9);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      backdrop-filter:blur(4px);
+    }
+    .eyebrow .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--orange);
+    }
+    .hero h1{
+      margin:16px 0 0;
+      max-width:840px;
+      font-size:clamp(3rem,5.7vw,5.8rem);
+      line-height:.92;
+      font-weight:700;
+      letter-spacing:-.06em;
+    }
+    .hero h1 .accent{color:var(--orange)}
+    .hero p{
+      margin:18px 0 0;
+      max-width:860px;
+      font-size:16px;
+      line-height:1.95;
+      color:rgba(255,255,255,.92);
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:26px;
+    }
+    .hero-actions .btn{
+      padding:14px 18px;
+      border-radius:8px;
+    }
+    .hero-stats{
+      margin-top:28px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.12);
+      display:flex;
+      flex-wrap:wrap;
+      gap:28px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.82);
+    }
+    .hero-stats span{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .mini-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--orange);
+      flex:0 0 auto;
+    }
+
+    /* Hero visual */
+    .hero-split{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    .hero-art{
+      background:#fff;
+      color:var(--navy);
+      border-radius:24px;
+      box-shadow:var(--shadow-strong);
+      padding:24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-art::before{
+      content:"";
+      position:absolute;
+      inset:-30px -30px auto auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(245,130,49,.16) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-art-top{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .hero-art-top .badge{
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--blue),var(--navy-2));
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      box-shadow:0 14px 28px rgba(17,40,79,.16);
+    }
+    .hero-art-top h2{
+      margin:0;
+      font-size:1.45rem;
+      line-height:1.1;
+      letter-spacing:-.03em;
+    }
+    .hero-art-top p{
+      margin:4px 0 0;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.7;
+    }
+    .hero-spot{
+      margin-top:18px;
+      background:linear-gradient(180deg, #f8fbff 0%, #eef4fb 100%);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+    .spot-row{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      padding:12px 0;
+      border-bottom:1px dashed #dce5f0;
+      font-size:13px;
+    }
+    .spot-row:last-child{border-bottom:none;padding-bottom:0}
+    .spot-row strong{color:var(--navy)}
+    .spot-row span{color:var(--text)}
+    .cta-strip{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px;
+    }
+
+    .poster-card{
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow-strong);
+      background:
+        linear-gradient(180deg, rgba(17,40,79,.08), rgba(17,40,79,.08)),
+        url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      min-height:100%;
+      position:relative;
+    }
+    .poster-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(7,17,31,.10), rgba(7,17,31,.34)),
+        radial-gradient(circle at 18% 18%, rgba(245,130,49,.18), transparent 20%);
+    }
+    .poster-overlay{
+      position:absolute;
+      inset:auto 18px 18px 18px;
+      z-index:1;
+      background:rgba(255,255,255,.92);
+      color:var(--navy);
+      border-radius:18px;
+      padding:18px;
+      box-shadow:0 12px 26px rgba(7,12,20,.14);
+    }
+    .poster-overlay h3{
+      margin:0;
+      font-size:1.2rem;
+      line-height:1.15;
+    }
+    .poster-overlay p{
+      margin:8px 0 0;
+      color:var(--text);
+      line-height:1.7;
+      font-size:13px;
+    }
+
+    /* Sections */
+    .section{
+      padding:92px 0;
+    }
+
+    .overview-grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:24px;
+      align-items:start;
+    }
+    .panel{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .panel-inner{
+      padding:26px;
+    }
+
+    .program-highlights{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:20px;
+    }
+    .highlight-card{
+      border:1px solid #edf2f8;
+      background:#fbfcfe;
+      border-radius:16px;
+      padding:16px;
+      min-height:126px;
+      box-shadow:0 8px 20px rgba(15,23,42,.04);
+    }
+    .highlight-card .icon{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      background:rgba(245,130,49,.12);
+      color:var(--orange);
+      display:grid;
+      place-items:center;
+      font-size:18px;
+      margin-bottom:12px;
+    }
+    .highlight-card h3{
+      margin:0 0 6px;
+      font-size:14px;
+      color:var(--navy);
+      line-height:1.25;
+    }
+    .highlight-card p{
+      margin:0;
+      color:var(--text);
+      font-size:12px;
+      line-height:1.75;
+    }
+
+    .side-note{
+      background:linear-gradient(180deg, #162743 0%, #111d33 100%);
+      color:#fff;
+      border-radius:22px;
+      box-shadow:var(--shadow-strong);
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+    .side-note::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 16% 24%, rgba(245,130,49,.16), transparent 24%),
+        radial-gradient(circle at 84% 18%, rgba(42,141,141,.14), transparent 22%);
+      pointer-events:none;
+    }
+    .side-note-inner{position:relative;z-index:1}
+    .side-note h3{
+      margin:0;
+      font-size:1.6rem;
+      line-height:1.12;
+    }
+    .side-note p{
+      margin:12px 0 0;
+      color:rgba(255,255,255,.76);
+      font-size:14px;
+      line-height:1.85;
+    }
+    .note-list{
+      list-style:none;
+      padding:0;
+      margin:18px 0 0;
+      display:grid;
+      gap:10px;
+    }
+    .note-list li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      font-size:13px;
+      line-height:1.7;
+      color:rgba(255,255,255,.86);
+    }
+    .note-list li i{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:rgba(255,255,255,.14);
+      position:relative;
+      flex:0 0 auto;
+      margin-top:3px;
+    }
+    .note-list li i::after{
+      content:"";
+      position:absolute;
+      inset:5px;
+      border-radius:50%;
+      background:var(--orange);
+    }
+    .side-cta{
+      margin-top:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    /* Eligibility + gains */
+    .triple-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+      margin-top:26px;
+    }
+    .info-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .info-card .head{
+      padding:18px 18px 14px;
+      background:linear-gradient(180deg, #f9fbff 0%, #eef4fb 100%);
+      border-bottom:1px solid var(--border);
+    }
+    .info-card .head h3{
+      margin:0;
+      font-size:1.1rem;
+      line-height:1.2;
+      color:var(--navy);
+    }
+    .info-card .body{
+      padding:18px;
+    }
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--text);
+      line-height:1.85;
+      font-size:13px;
+    }
+    .info-card li{margin-bottom:8px}
+
+    .timeline{
+      display:grid;
+      gap:12px;
+    }
+    .timeline-item{
+      display:grid;
+      grid-template-columns:24px 1fr auto;
+      gap:12px;
+      align-items:start;
+      padding:12px 0;
+      border-bottom:1px solid #edf2f8;
+      font-size:13px;
+      line-height:1.65;
+    }
+    .timeline-item:last-child{border-bottom:none;padding-bottom:0}
+    .time-ico{
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:rgba(245,130,49,.14);
+      color:var(--orange);
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .timeline-item strong{color:var(--navy)}
+    .timeline-item span:last-child{color:var(--text);white-space:nowrap}
+
+    .form-wrap{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      padding:26px;
+    }
+
+    .form-hero{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:20px;
+      align-items:center;
+      padding:22px;
+      border-radius:20px;
+      background:linear-gradient(135deg, rgba(17,40,79,.96), rgba(11,30,59,.98));
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow-strong);
+    }
+    .form-hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 16% 24%, rgba(245,130,49,.16), transparent 24%),
+        radial-gradient(circle at 84% 18%, rgba(42,141,141,.14), transparent 22%);
+      pointer-events:none;
+    }
+    .form-hero > div{position:relative;z-index:1}
+    .form-hero h2{
+      margin:0;
+      font-size:clamp(2.1rem,3.7vw,3.6rem);
+      line-height:.96;
+    }
+    .form-hero p{
+      margin:12px 0 0;
+      color:rgba(255,255,255,.84);
+      max-width:760px;
+      line-height:1.8;
+      font-size:14px;
+    }
+    .form-hero .mini{
+      display:grid;
+      gap:10px;
+      min-width:220px;
+    }
+    .mini-box{
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      color:#fff;
+      font-size:12px;
+      line-height:1.5;
+    }
+    .mini-box strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:13px;
+    }
+
+    .application{
+      margin-top:22px;
+    }
+    .application-grid{
+      display:grid;
+      gap:18px;
+    }
+    .app-section{
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .app-section .app-head{
+      padding:18px 20px;
+      background:linear-gradient(180deg, #f9fbff 0%, #eef4fb 100%);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .app-section .app-head h3{
+      margin:0;
+      color:var(--navy);
+      font-size:1.1rem;
+      line-height:1.2;
+    }
+    .app-section .app-head span{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .app-body{
+      padding:20px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+    .field{
+      display:grid;
+      gap:8px;
+    }
+    .field.full{grid-column:1 / -1}
+    .field label{
+      font-size:12px;
+      font-weight:800;
+      color:#314463;
+      letter-spacing:.02em;
+    }
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      border:1px solid #dce6f1;
+      background:#fff;
+      color:var(--navy);
+      padding:13px 14px;
+      border-radius:12px;
+      outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:rgba(245,130,49,.6);
+      box-shadow:0 0 0 4px rgba(245,130,49,.12);
+    }
+    .field textarea{
+      min-height:140px;
+      resize:vertical;
+    }
+
+    .choice-wrap{
+      display:grid;
+      gap:12px;
+    }
+
+    .choice-grid.radio-grid{
+      display:grid;
+      grid-template-columns:repeat(5, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .choice-grid.check-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:10px;
+    }
+
+    .choice-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:12px 14px;
+      min-height:50px;
+      border:1px solid #dce6f1;
+      border-radius:12px;
+      background:#fff;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.45;
+      cursor:pointer;
+      transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease, background .2s ease;
+    }
+
+    .choice-item:hover{
+      border-color:rgba(245,130,49,.45);
+      box-shadow:0 0 0 4px rgba(245,130,49,.08);
+      transform:translateY(-1px);
+      background:#fffdf9;
+    }
+
+    .choice-item input{
+      margin-top:2px;
+      flex:0 0 auto;
+      width:16px;
+      height:16px;
+      accent-color:var(--orange);
+    }
+
+    .choice-text{
+      display:block;
+      flex:1;
+    }
+
+    .choice-item strong{
+      color:var(--navy);
+    }
+
+    .radio-stack{
+      display:grid;
+      gap:10px;
+    }
+
+    .full-span{
+      grid-column:1 / -1;
+    }
+
+    .submit-note{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      align-items:center;
+      margin-top:16px;
+      padding:18px;
+      background:#f7fbff;
+      border:1px solid #dce7f3;
+      border-radius:16px;
+    }
+    .submit-note p{
+      margin:0;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.8;
+    }
+    .submit-note .btn{
+      padding:13px 16px;
+      border-radius:12px;
+    }
+
+    .sign-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:14px;
+    }
+
+    .footer{
+      background:linear-gradient(180deg, #0c1729 0%, var(--navy-2) 100%);
+      color:#fff;
+      padding:34px 0 12px;
+      border-top:1px solid rgba(215,173,77,.10);
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.35fr .85fr .85fr .95fr;
+      gap:32px;
+      align-items:start;
+    }
+    .footer-brand{
+      max-width:320px;
+    }
+    .footer-brand .brand-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:18px;
+    }
+    .footer-brand .brand-row img{
+      width:150px;
+      height:84px;
+      object-fit:contain;
+    }
+    .footer-brand .brand-row strong{
+      display:block;
+      font-size:14px;
+      letter-spacing:.08em;
+    }
+    .footer-brand p{
+      margin:0 0 18px;
+      color:rgba(255,255,255,.72);
+      line-height:1.75;
+      font-size:13px;
+    }
+    .footer-contact{
+      display:grid;
+      gap:8px;
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+      line-height:1.7;
+    }
+    .footer-contact span{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .footer-contact .icon{
+      color:#d9b35c;
+      min-width:16px;
+      margin-top:1px;
+    }
+    .footer-col h4{
+      margin:0 0 16px;
+      font-size:12px;
+      color:#fff;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .footer-links{
+      display:grid;
+      gap:11px;
+      font-size:13px;
+      color:rgba(255,255,255,.72);
+    }
+    .footer-links a:hover{color:#fff}
+    .footer-cta{
+      margin-top:10px;
+      display:flex;
+      justify-content:flex-start;
+    }
+    .footer-cta .btn{
+      padding:10px 16px;
+      border-radius:10px;
+      font-size:13px;
+      background:linear-gradient(180deg, #d8b35c 0%, #c4932a 100%);
+      color:#11203c;
+      font-weight:800;
+    }
+    .footer-cta .btn:hover{background:linear-gradient(180deg, #e3c26f 0%, #d09f3b 100%)}
+    .footer-bottom{
+      margin-top:28px;
+      padding-top:12px;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:18px;
+      color:rgba(255,255,255,.45);
+      font-size:12px;
+    }
+
+    @media (max-width: 1180px){
+      .hero-split,
+      .overview-grid{
+        grid-template-columns:1fr;
+      }
+      .hero-art{
+        order:2;
+      }
+      .poster-card{
+        min-height:420px;
+      }
+    }
+
+    @media (max-width: 1100px){
+      .nav{display:none}
+      .nav-toggle{display:inline-flex}
+      .program-highlights,
+      .triple-grid,
+      .footer-grid{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+      .hero-grid{
+        min-height:unset;
+      }
+      .grid-3{
+        grid-template-columns:repeat(2, minmax(0,1fr));
+      }
+      .grid-2,
+      .form-hero,
+      .submit-note,
+      .sign-grid{
+        grid-template-columns:1fr;
+      }
+      .choice-grid.radio-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .choice-grid.check-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px){
+      .header-inner{
+        justify-content:flex-start;
+      }
+      .program-highlights,
+      .triple-grid,
+      .grid-3,
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+      .hero h1{
+        font-size:clamp(2.8rem,10vw,4.8rem);
+      }
+      .hero p{
+        font-size:15px;
+      }
+      .section{
+        padding:72px 0;
+      }
+      .panel-inner,
+      .form-wrap,
+      .app-body{
+        padding:20px;
+      }
+      .choice-grid.check-grid{
+        grid-template-columns:1fr;
+      }
+      .choice-grid.radio-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 720px){
+      .header-inner{
+        min-height:auto;
+        padding:14px 0;
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .brand,
+      .header-actions{min-width:0}
+      .header-actions{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+      }
+      .nav-toggle{
+        margin-left:auto;
+      }
+      .hero-grid{
+        padding:48px 0 46px;
+      }
+      .hero h1{font-size:clamp(2.7rem,12vw,4.4rem)}
+      .hero-actions .btn,
+      .cta-strip .btn,
+      .side-cta .btn{
+        width:100%;
+      }
+      .poster-card{
+        min-height:340px;
+      }
+      .footer{
+        padding-top:58px;
+      }
+      .mobile-drawer{
+        width:min(92vw, 360px);
+      }
+      .timeline-item{
+        grid-template-columns:24px 1fr;
+      }
+      .timeline-item span:last-child{
+        grid-column:2 / -1;
+        white-space:normal;
+      }
+    }
+       .brand{
+  display:flex;
+  align-items:center;
+  min-width:250px;
+  text-decoration:none;
+}
+
+.brand-image{
+  display:block;
+  width:auto;
+  height:62px;       /* adjust as needed */
+  max-width:100%;
+  object-fit:contain;
+}
+.mobile-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  height:100vh;
+  width:min(88vw, 360px);
+  background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);
+  border-left:1px solid rgba(255,255,255,.08);
+  box-shadow:-18px 0 44px rgba(7,12,20,.22);
+  transform:translateX(100%);
+  transition:transform .28s ease;
+  z-index:60;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+}
+
+.mobile-drawer.open{
+  transform:translateX(0);
+}
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:16px;
+}
+
+.drawer-brand{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  text-decoration:none;
+}
+
+.drawer-brand-image{
+  display:block;
+  width:auto;
+  height:44px;   /* adjust as needed */
+  max-width:100%;
+  object-fit:contain;
+}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+       <a class="brand" href="index.html" aria-label="Media for Social Impact home">
+  <img src="logo.png" alt="Media for Social Impact MSI Programs" class="brand-image">
+</a>
+
+      <nav class="nav" aria-label="Primary navigation">
+              <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+ <a href="team.html">Team</a>
+        <a href="programs.html">Programs</a>
+         <a href="fellowship.html">Fellowships</a>
+        <a href="partnership.html">Partnerships</a>
+        <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <div class="header-actions">
+
+        <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
+          <span class="bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="drawer-head">
+     <a class="drawer-brand" href="index.html" aria-label="Media for Social Impact home">
+    <img src="logo.png" alt="Media for Social Impact MSI Programs" class="drawer-brand-image">
+  </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Mobile primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+ <a href="team.html">Team</a>
+  <a href="fellowship.html">Fellowships</a>
+        <a href="programs.html">Programs</a>
+        <a href="partnership.html">Partnerships</a>
+      <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="drawer-cta">
+
+      <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+    </div>
+  </aside>
+
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="dot"></span>Fellowship Opportunities</div>
+            <h1 class="font-display">
+              50 Young Media Storytellers<br />
+              <span class="accent">Fellowship 2026</span>
+            </h1>
+            <p>
+              A virtual global cohort for emerging journalists, filmmakers, podcasters, digital creators, and communication professionals committed to using media as a tool for social transformation.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#application">Start Application →</a>
+              <a class="btn btn-light" href="#timeline">View Timeline</a>
+        
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="container overview-grid">
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="section-kicker">
+              <span class="line"></span>
+              Fellowship Overview
+            </div>
+            <h2 class="section-title font-display">Build, Learn, Create, and Lead</h2>
+            <p class="section-subtitle" style="margin-left:0; max-width:none;">
+              The 50 Young Media Storytellers Fellowship 2026 is designed to equip rising media talent with mentorship, international visibility, practical development, and a platform to use storytelling for social good.
+            </p>
+
+            <div class="program-highlights">
+              <article class="highlight-card">
+                <div class="icon">✦</div>
+                <h3>International Certificate</h3>
+                <p>Recognition for completing a high-value virtual global fellowship cohort.</p>
+              </article>
+              <article class="highlight-card">
+                <div class="icon">◎</div>
+                <h3>Global Mentorship</h3>
+                <p>Learn from experienced media leaders, facilitators, and industry professionals.</p>
+              </article>
+              <article class="highlight-card">
+                <div class="icon">↗</div>
+                <h3>Networking Opportunities</h3>
+                <p>Connect with fellow storytellers, collaborators, and impact-driven institutions.</p>
+              </article>
+              <article class="highlight-card">
+                <div class="icon">⌂</div>
+                <h3>Workshops &amp; Masterclasses</h3>
+                <p>Practical sessions focused on storytelling, leadership, and creative growth.</p>
+              </article>
+              <article class="highlight-card">
+                <div class="icon">◉</div>
+                <h3>Project Showcase</h3>
+                <p>Present your work, ideas, and impact project to a global audience.</p>
+              </article>
+              <article class="highlight-card">
+                <div class="icon">◫</div>
+                <h3>Career Growth</h3>
+                <p>Strengthen your professional visibility and expand your media portfolio.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div class="side-note">
+          <div class="side-note-inner">
+            <div class="section-kicker" style="color:#d9b35c;">
+              <span class="line"></span>
+              Why This Fellowship Matters
+            </div>
+            <h3 class="font-display">For storytellers who want to build something bigger than content.</h3>
+            <p>
+              This fellowship supports people who care about using media responsibly and creatively to influence conversations, inform communities, and drive positive change.
+            </p>
+
+            <ul class="note-list">
+              <li><i></i>Storytelling that informs and transforms.</li>
+              <li><i></i>Leadership development for emerging media voices.</li>
+              <li><i></i>Access to a virtual global learning community.</li>
+              <li><i></i>Recognition, support, and practical project growth.</li>
+            </ul>
+
+            <div class="side-cta">
+              <a class="btn btn-primary" href="#application">Apply Now</a>
+              <a class="btn btn-light" href="#timeline">Deadline &amp; Timeline</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="who-can-apply">
+      <div class="container">
+        <div class="section-kicker">
+          <span class="line"></span>
+          Eligibility &amp; Benefits
+        </div>
+        <h2 class="section-title font-display">Who Can Apply and What You Will Gain</h2>
+        <p class="section-subtitle" style="margin-left:0; max-width:none;">
+          This cohort is built for emerging storytellers who want to grow in craft, leadership, and public impact.
+        </p>
+
+        <div class="triple-grid">
+          <article class="info-card">
+            <div class="head">
+              <h3>Who Can Apply?</h3>
+            </div>
+            <div class="body">
+              <ul>
+                <li>Age 18 – 40 years</li>
+                <li>Passionate about storytelling and social impact</li>
+                <li>Journalists, filmmakers, content creators, podcasters, bloggers, photographers, media entrepreneurs, or communication professionals</li>
+                <li>Demonstrate leadership potential</li>
+                <li>Have access to reliable internet</li>
+                <li>Willing to actively participate in a virtual program</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="info-card">
+            <div class="head">
+              <h3>What You Will Gain</h3>
+            </div>
+            <div class="body">
+              <ul>
+                <li>Expert-led training and masterclasses</li>
+                <li>Mentorship from global media leaders</li>
+                <li>Leadership and personal development</li>
+                <li>Access to a global alumni network</li>
+                <li>Collaboration on real-world media projects</li>
+                <li>Recognition and publication opportunities</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="info-card" id="timeline">
+            <div class="head">
+              <h3>Application Timeline</h3>
+            </div>
+            <div class="body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Applications Open</strong>
+                  <span>July 1, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Information Session</strong>
+                  <span>July 25, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Application Deadline</strong>
+                  <span style="color:#d62727;font-weight:800;">September 15, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Shortlisting &amp; Review</strong>
+                  <span>September 16 – 25, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Interviews</strong>
+                  <span>September 26 – 30, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Selected Fellows Announced</strong>
+                  <span>October 5, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Fellowship Commencement</strong>
+                  <span>October 12, 2026</span>
+                </div>
+                <div class="timeline-item">
+                  <div class="time-ico">●</div>
+                  <strong>Graduation</strong>
+                  <span>December 18, 2026</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-to-apply" style="padding-top:0;">
+      <div class="container">
+        <div class="form-wrap">
+          <div class="section-kicker">
+            <span class="line"></span>
+            How to Apply
+          </div>
+          <h2 class="section-title font-display">Application Form</h2>
+          <p class="section-subtitle" style="margin-left:0; max-width:none;">
+            Fill out the application below. You can keep the form online or connect it to your backend later.
+          </p>
+
+          <div class="form-hero">
+            <div>
+              <h2 class="font-display">50 Young Media Storytellers Fellowship 2026</h2>
+              <p>
+                Media for Social Impact (MSI) — Amplifying Voices, Inspiring Change. Submit a complete application with your personal information, professional background, motivation, leadership experience, project idea, and references.
+              </p>
+            </div>
+            <div class="mini">
+              <div class="mini-box">
+                <strong>Deadline</strong>
+                September 15, 2026
+              </div>
+              <div class="mini-box">
+                <strong>Email</strong>
+                fellowship@mediaforsocialimpact.org
+              </div>
+            </div>
+          </div>
+
+          <form class="application" id="application">
+            <div class="application-grid">
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section A: Personal Information</h3>
+                  <span>Applicant details</span>
+                </div>
+                <div class="app-body">
+                  <div class="grid-2">
+                    <div class="field full">
+                      <label for="fullName">1. Full Name</label>
+                      <input id="fullName" type="text" placeholder="Your full name" />
+                    </div>
+
+                    <div class="field full">
+                      <label>2. Gender</label>
+                      <div class="choice-wrap">
+                        <div class="choice-grid check-grid" style="grid-template-columns:repeat(3, minmax(0, 1fr));">
+                          <label class="choice-item"><input type="radio" name="gender" /><span class="choice-text">Male</span></label>
+                          <label class="choice-item"><input type="radio" name="gender" /><span class="choice-text">Female</span></label>
+                          <label class="choice-item"><input type="radio" name="gender" /><span class="choice-text">Prefer Not to Say</span></label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="dob">3. Date of Birth</label>
+                      <input id="dob" type="date" />
+                    </div>
+
+                    <div class="field">
+                      <label for="nationality">4. Nationality</label>
+                      <input id="nationality" type="text" placeholder="Your nationality" />
+                    </div>
+
+                    <div class="field">
+                      <label for="residence">5. Country of Residence</label>
+                      <input id="residence" type="text" placeholder="Country of residence" />
+                    </div>
+
+                    <div class="field">
+                      <label for="email">6. Email Address</label>
+                      <input id="email" type="email" placeholder="you@example.com" />
+                    </div>
+
+                    <div class="field full">
+                      <label for="phone">7. Phone Number (with Country Code)</label>
+                      <input id="phone" type="tel" placeholder="+234..." />
+                    </div>
+
+                    <div class="field">
+                      <label for="linkedin">8. LinkedIn Profile (Optional)</label>
+                      <input id="linkedin" type="url" placeholder="https://linkedin.com/in/..." />
+                    </div>
+
+                    <div class="field">
+                      <label for="portfolio">9. Personal Website/Portfolio (Optional)</label>
+                      <input id="portfolio" type="url" placeholder="https://..." />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section B: Professional Background</h3>
+                  <span>Work and experience</span>
+                </div>
+                <div class="app-body">
+                  <div class="grid-2">
+                    <div class="field full">
+                      <label for="occupation">10. Current Occupation</label>
+                      <input id="occupation" type="text" placeholder="Your current occupation" />
+                    </div>
+
+                    <div class="field full">
+                      <label for="organization">11. Organization/Institution</label>
+                      <input id="organization" type="text" placeholder="Organization or institution" />
+                    </div>
+
+                    <div class="field full">
+                      <label>12. Years of Experience in Media, Communication, or Storytelling</label>
+                      <div class="choice-wrap">
+                        <div class="choice-grid radio-grid">
+                          <label class="choice-item"><input type="radio" name="experience" /><span class="choice-text">Less than 1 Year</span></label>
+                          <label class="choice-item"><input type="radio" name="experience" /><span class="choice-text">1 – 3 Years</span></label>
+                          <label class="choice-item"><input type="radio" name="experience" /><span class="choice-text">4 – 6 Years</span></label>
+                          <label class="choice-item"><input type="radio" name="experience" /><span class="choice-text">7 – 10 Years</span></label>
+                          <label class="choice-item"><input type="radio" name="experience" /><span class="choice-text">More than 10 Years</span></label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field full">
+                      <label>13. Area(s) of Expertise (Select all that apply)</label>
+                      <div class="choice-wrap">
+                        <div class="choice-grid check-grid">
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Journalism</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Broadcasting</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Podcasting</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Documentary Production</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Filmmaking</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Photography</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Digital Storytelling</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Social Media Content Creation</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Public Relations</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Media Entrepreneurship</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Advocacy Communication</span></label>
+                          <label class="choice-item"><input type="checkbox" /><span class="choice-text">Other: ____________________</span></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section C: Motivation Statement</h3>
+                  <span>Why you are applying</span>
+                </div>
+                <div class="app-body">
+                  <div class="grid-2">
+                    <div class="field full">
+                      <label for="motivation">14. Why are you interested in joining the fellowship? (Maximum 300 words)</label>
+                      <textarea id="motivation" placeholder="Write your response here..."></textarea>
+                    </div>
+
+                    <div class="field full">
+                      <label for="projectImpact">15. Describe a media project, story, campaign, or initiative you have led or participated in and its impact. (Maximum 300 words)</label>
+                      <textarea id="projectImpact" placeholder="Write your response here..."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section D: Leadership and Social Impact</h3>
+                  <span>Leadership experience</span>
+                </div>
+                <div class="app-body">
+                  <div class="grid-2">
+                    <div class="field full">
+                      <label for="leadership">16. Describe your leadership experience and community engagement activities. (Maximum 250 words)</label>
+                      <textarea id="leadership" placeholder="Write your response here..."></textarea>
+                    </div>
+
+                    <div class="field full">
+                      <label>17. What social issue are you most passionate about addressing through storytelling?</label>
+                      <div class="choice-wrap">
+                        <div class="choice-grid check-grid">
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Education</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Health</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Gender Equality</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Climate Change</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Governance</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Youth Development</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Human Rights</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Entrepreneurship</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Media Literacy</span></label>
+                          <label class="choice-item"><input type="radio" name="socialIssue" /><span class="choice-text">Other: ____________________</span></label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section E: Fellowship Project Idea</h3>
+                  <span>Project concept</span>
+                </div>
+                <div class="app-body">
+                  <div class="field">
+                    <label for="projectIdea">18. Briefly describe the media project you would like to develop during the fellowship. (Maximum 300 words)</label>
+                    <textarea id="projectIdea" placeholder="Share your fellowship project idea..."></textarea>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section F: References</h3>
+                  <span>Referee details</span>
+                </div>
+                <div class="app-body">
+                  <div class="grid-2">
+                    <div class="field">
+                      <label for="refereeName">19. Name of Referee</label>
+                      <input id="refereeName" type="text" placeholder="Referee name" />
+                    </div>
+                    <div class="field">
+                      <label for="refereeRole">20. Position/Organization</label>
+                      <input id="refereeRole" type="text" placeholder="Position / organization" />
+                    </div>
+                    <div class="field">
+                      <label for="refereeEmail">21. Email Address</label>
+                      <input id="refereeEmail" type="email" placeholder="Referee email" />
+                    </div>
+                    <div class="field">
+                      <label for="refereePhone">22. Phone Number</label>
+                      <input id="refereePhone" type="tel" placeholder="Referee phone number" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Section G: Supporting Documents</h3>
+                  <span>Attachments</span>
+                </div>
+                <div class="app-body">
+                  <div class="choice-grid check-grid">
+                    <label class="choice-item"><input type="checkbox" /><span class="choice-text">Updated CV/Resume</span></label>
+                    <label class="choice-item"><input type="checkbox" /><span class="choice-text">Personal Statement</span></label>
+                    <label class="choice-item"><input type="checkbox" /><span class="choice-text">Media Portfolio/Sample of Work (Optional)</span></label>
+                    <label class="choice-item"><input type="checkbox" /><span class="choice-text">Professional Photograph</span></label>
+                    <label class="choice-item"><input type="checkbox" /><span class="choice-text">Reference Letter</span></label>
+                  </div>
+
+                  <div style="margin-top:18px;">
+                    <label class="field" style="margin-bottom:0;">
+                      <span style="font-size:12px;font-weight:800;color:#314463;">Upload Documents</span>
+                      <input type="file" multiple />
+                    </label>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Declaration</h3>
+                  <span>Confirmation</span>
+                </div>
+                <div class="app-body">
+                  <div class="field">
+                    <label for="declaration">I hereby certify that all information provided in this application is true and accurate to the best of my knowledge. I understand that providing false information may result in disqualification from the fellowship.</label>
+                    <textarea id="declaration" placeholder="Type your name, signature, and date here..."></textarea>
+                  </div>
+
+                  <div class="sign-grid" style="margin-top:14px;">
+                    <div class="field">
+                      <label for="applicantName">Applicant Name</label>
+                      <input id="applicantName" type="text" placeholder="Applicant name" />
+                    </div>
+                    <div class="field">
+                      <label for="signature">Signature</label>
+                      <input id="signature" type="text" placeholder="Type your signature" />
+                    </div>
+                    <div class="field">
+                      <label for="signDate">Date</label>
+                      <input id="signDate" type="date" />
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="app-section">
+                <div class="app-head">
+                  <h3>Submission Information</h3>
+                  <span>Program details</span>
+                </div>
+                <div class="app-body">
+                  <div class="grid-2">
+                    <div class="field full">
+                      <label for="deadline">Application Deadline</label>
+                      <input id="deadline" type="text" value="September 15, 2026" readonly />
+                    </div>
+                    <div class="field full">
+                      <label for="submissionEmail">Email</label>
+                      <input id="submissionEmail" type="text" value="fellowship@mediaforsocialimpact.org" readonly />
+                    </div>
+                    <div class="field full">
+                      <label for="programName">Program</label>
+                      <input id="programName" type="text" value="50 Young Media Storytellers Fellowship 2026 – Virtual Global Cohort" readonly />
+                    </div>
+                    <div class="field full">
+                      <label for="website">Website</label>
+                      <input id="website" type="text" value="www.mediaforsocialimpact.org" readonly />
+                    </div>
+                  </div>
+
+                  <div class="submit-note">
+                    <p>
+                      Fellowship Coach: Dr. Shola Animashaun, International Director, Shola Animashaun Studio, Houston, Texas, USA.
+                    </p>
+                    <a class="btn btn-primary" href="mailto:fellowship@mediaforsocialimpact.org">Submit by Email</a>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" style="padding-top:0;">
+      <div class="container">
+        <div class="triple-grid" style="grid-template-columns:1fr 1fr 1fr;">
+          <article class="info-card">
+            <div class="head">
+              <h3>Need Help?</h3>
+            </div>
+            <div class="body">
+              <p style="margin:0;color:var(--text);line-height:1.8;font-size:13px;">
+                For application support, contact us at fellowship@mediaforsocialimpact.org
+              </p>
+            </div>
+          </article>
+          <article class="info-card">
+            <div class="head">
+              <h3>Organized By</h3>
+            </div>
+            <div class="body">
+              <p style="margin:0;color:var(--text);line-height:1.8;font-size:13px;">
+                Media for Social Impact<br/>Amplifying Voices, Inspiring Change
+              </p>
+            </div>
+          </article>
+          <article class="info-card">
+            <div class="head">
+              <h3>Website</h3>
+            </div>
+            <div class="body">
+              <p style="margin:0;color:var(--text);line-height:1.8;font-size:13px;">
+                www.mediaforsocialimpact.org
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-row">
+            <img src="logo.png" alt="Media for Social Impact logo" />
+            <div>
+           
+             
+            </div>
+          </div>
+          <p>
+            Empowering people through media, storytelling, advocacy, innovation, and global collaboration for a more inclusive and sustainable world.
+          </p>
+          <div class="footer-contact">
+            <span><span class="icon">✉</span> fellowship@mediaforsocialimpact.org</span>
+            <span><span class="icon">✉</span> info@mediaforsocialimpact.org</span>
+            <span><span class="icon">⌂</span> www.mediaforsocialimpact.org</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="programs.html">Programs</a>
+            <a href="fellowships.html">Fellowships</a>
+            <a href="partnerships.html">Partnerships</a>
+            <a href="news.html">News &amp; Insights</a>
+            <a href="contact.html">Contact</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get Involved</h4>
+          <div class="footer-links">
+            <a href="#application">Apply</a>
+            <a href="#who-can-apply">Eligibility</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#contact">Contact Us</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Follow Us</h4>
+          <div class="footer-links">
+            <a href="#">Facebook</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">X (Twitter)</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+          </div>
+          <div class="footer-cta">
+            <a class="btn" href="#application">Apply Now →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 Media for Social Impact (MSI). All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      mobileDrawer.classList.add('open');
+      drawerBackdrop.classList.add('show');
+      document.body.classList.add('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'false');
+      navToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      mobileDrawer.classList.remove('open');
+      drawerBackdrop.classList.remove('show');
+      document.body.classList.remove('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'true');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    navToggle.addEventListener('click', () => {
+      if (mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    mobileDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1100 && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+  </script>
+</body>
+</html>

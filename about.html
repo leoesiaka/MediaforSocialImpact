@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About MSI | Media for Social Impact</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700;800&display=swap');
+
+    :root{
+      --navy:#11284f;
+      --navy-2:#0b1e3b;
+      --blue:#173a72;
+      --teal:#2a8d8d;
+      --orange:#f58231;
+      --bg:#f7f9fc;
+      --text:#5b6878;
+      --muted:#7f8b99;
+      --border:#e4ebf3;
+      --card:#ffffff;
+      --shadow:0 16px 40px rgba(14, 24, 44, .08);
+      --shadow-strong:0 24px 70px rgba(7, 12, 20, .18);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--navy);
+      background:var(--bg);
+    }
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+
+    .container{
+      width:min(1180px,calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .font-display{
+      font-family:"Cormorant Garamond",Georgia,serif;
+      letter-spacing:-.04em;
+    }
+
+    .section-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--orange);
+    }
+    .section-kicker .line{
+      width:34px;
+      height:1px;
+      background:currentColor;
+      opacity:.9;
+    }
+
+    .section-title{
+      margin:12px 0 0;
+      font-size:clamp(2.4rem,4vw,4.1rem);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.05em;
+      color:var(--navy);
+    }
+    .section-subtitle{
+      margin:14px auto 0;
+      max-width:760px;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:11px 16px;
+      border-radius:8px;
+      border:1px solid transparent;
+      font-size:13px;
+      font-weight:700;
+      line-height:1;
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+      white-space:nowrap;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:var(--orange);
+      color:#fff;
+      box-shadow:0 10px 22px rgba(245,130,49,.18);
+    }
+    .btn-outline{
+      background:#fff;
+      color:var(--blue);
+      border-color:#cdd8e6;
+    }
+    .btn-dark{
+      background:var(--blue);
+      color:#fff;
+    }
+    .btn-white{
+      background:#fff;
+      color:var(--navy);
+      border-color:#fff;
+    }
+
+    /* Header */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid #edf1f7;
+    }
+    .header-inner{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:250px;
+      font-weight:900;
+      color:var(--navy);
+    }
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff 0 12%, transparent 13%),
+                 linear-gradient(135deg, var(--blue), var(--navy-2));
+      position:relative;
+      box-shadow:0 8px 18px rgba(17,40,79,.18);
+    }
+    .brand-mark:before{
+      content:"";
+      position:absolute;
+      inset:8px;
+      border-radius:50%;
+      border:2px solid rgba(255,255,255,.9);
+      border-right-color:transparent;
+      transform:rotate(18deg);
+    }
+    .brand-name{
+      display:flex;
+      flex-direction:column;
+      line-height:1.02;
+      font-size:12px;
+      letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .brand-name strong{font-size:13px}
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:28px;
+      flex:1;
+      font-size:13px;
+      font-weight:600;
+      color:#5e6c7d;
+      white-space:nowrap;
+    }
+    .nav a:hover{color:var(--navy)}
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:220px;
+      justify-content:flex-end;
+    }
+
+    .nav-toggle{
+      display:none;
+      width:46px;
+      height:46px;
+      border-radius:12px;
+      border:1px solid #d8e1ec;
+      background:#fff;
+      box-shadow:0 8px 18px rgba(15,23,42,.05);
+      cursor:pointer;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      flex:0 0 auto;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .nav-toggle:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 22px rgba(15,23,42,.08);
+      border-color:#c7d3e3;
+    }
+    .nav-toggle .bars{
+      width:18px;
+      height:12px;
+      position:relative;
+      display:block;
+    }
+    .nav-toggle .bars span{
+      position:absolute;
+      left:0;
+      width:100%;
+      height:2px;
+      border-radius:999px;
+      background:var(--navy);
+      transition:.22s ease;
+    }
+    .nav-toggle .bars span:nth-child(1){top:0}
+    .nav-toggle .bars span:nth-child(2){top:5px}
+    .nav-toggle .bars span:nth-child(3){top:10px}
+
+    .drawer-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(8,14,24,.50);
+      backdrop-filter:blur(3px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .22s ease;
+      z-index:59;
+    }
+    .drawer-backdrop.show{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .mobile-drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100vh;
+      width:min(88vw, 360px);
+      background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);
+      border-left:1px solid rgba(255,255,255,.08);
+      box-shadow:-18px 0 44px rgba(7,12,20,.22);
+      transform:translateX(100%);
+      transition:transform .28s ease;
+      z-index:60;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+    }
+    .mobile-drawer.open{
+      transform:translateX(0);
+    }
+    .drawer-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding-bottom:14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      margin-bottom:16px;
+    }
+    .drawer-brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .drawer-brand .brand-mark{
+      width:38px;
+      height:38px;
+      flex:0 0 auto;
+    }
+    .drawer-brand .brand-name{
+      color:#fff;
+    }
+    .drawer-brand .brand-name span{
+      color:rgba(255,255,255,.76);
+    }
+    .drawer-close{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      font-size:24px;
+      line-height:1;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition:background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .drawer-close:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.18);
+    }
+    .drawer-nav{
+      display:grid;
+      gap:8px;
+      margin-top:4px;
+    }
+    .drawer-nav a{
+      color:#fff;
+      padding:14px 14px;
+      border-radius:12px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.06);
+      font-size:14px;
+      font-weight:700;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .drawer-nav a:hover{
+      transform:translateX(-2px);
+      background:rgba(245,130,49,.10);
+      border-color:rgba(245,130,49,.22);
+    }
+    .drawer-cta{
+      margin-top:auto;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:grid;
+      gap:10px;
+    }
+    .drawer-cta .btn{
+      width:100%;
+      border-radius:12px;
+      padding:13px 14px;
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      color:#fff;
+      background:
+        linear-gradient(180deg, rgba(13, 31, 61, .78), rgba(13, 31, 61, .84)),
+        url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(245,130,49,.18), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(42,141,141,.16), transparent 25%);
+      pointer-events:none;
+    }
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      min-height:520px;
+      display:grid;
+      align-items:center;
+      padding:62px 0 56px;
+    }
+    .hero-copy{
+      max-width:920px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 13px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.9);
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      backdrop-filter:blur(4px);
+    }
+    .hero h1{
+      margin:16px 0 0;
+      max-width:860px;
+      font-size:clamp(3.2rem,6vw,6rem);
+      line-height:.92;
+      font-weight:700;
+      letter-spacing:-.06em;
+    }
+    .hero h1 .accent{color:var(--orange)}
+    .hero p{
+      margin:18px 0 0;
+      max-width:860px;
+      font-size:16px;
+      line-height:1.9;
+      color:rgba(255,255,255,.92);
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:26px;
+    }
+    .hero-actions .btn{
+      padding:14px 18px;
+      border-radius:8px;
+    }
+    .hero-stats{
+      margin-top:28px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.12);
+      display:flex;
+      flex-wrap:wrap;
+      gap:28px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.84);
+    }
+    .hero-stats span{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--orange);
+      flex:0 0 auto;
+    }
+
+    /* Intro / Story */
+    .story{
+      padding:96px 0;
+      background:#fff;
+    }
+    .story-grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:54px;
+      align-items:center;
+    }
+    .story-media{
+      position:relative;
+    }
+    .story-photo{
+      overflow:hidden;
+      border-radius:26px;
+      box-shadow:0 24px 80px rgba(15,23,42,.16);
+      border:1px solid #e8edf4;
+      background:#e8edf4;
+      min-height:520px;
+    }
+    .story-photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .story-badge{
+      position:absolute;
+      left:-14px;
+      top:-14px;
+      background:var(--orange);
+      color:#fff;
+      border-radius:18px;
+      padding:16px 18px 14px;
+      min-width:132px;
+      box-shadow:0 18px 40px rgba(245,130,49,.28);
+    }
+    .story-badge strong{
+      display:block;
+      font-size:34px;
+      line-height:1;
+      font-weight:900;
+    }
+    .story-badge small{
+      display:block;
+      margin-top:3px;
+      font-size:11px;
+      line-height:1.2;
+      font-weight:700;
+    }
+    .story-copy p{
+      margin:14px 0 0;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.9;
+    }
+    .quote{
+      margin-top:24px;
+      padding:20px 22px;
+      border-left:3px solid var(--teal);
+      background:#f7fbfb;
+      border-radius:0 18px 18px 0;
+      color:var(--navy);
+      font-size:15px;
+      line-height:1.8;
+      box-shadow:var(--shadow);
+    }
+
+    /* Mission / Vision */
+    .mv{
+      padding:8px 0 96px;
+      background:#f7f9fc;
+    }
+    .mv-head{
+      text-align:center;
+      max-width:950px;
+      margin:0 auto 44px;
+    }
+    .mv-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:22px;
+    }
+    .mv-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .mv-card::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:4px;
+      background:linear-gradient(90deg, var(--orange), var(--teal));
+    }
+    .mv-card h3{
+      margin:0;
+      font-size:18px;
+      font-weight:800;
+      color:var(--navy);
+    }
+    .mv-card p{
+      margin:12px 0 0;
+      color:var(--text);
+      font-size:14px;
+      line-height:1.85;
+    }
+    .mv-icon{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      margin-bottom:16px;
+      background:linear-gradient(135deg, rgba(23,58,114,.10), rgba(42,141,141,.10));
+      color:var(--blue);
+      font-weight:900;
+    }
+
+    /* Values */
+    .values{
+      padding:96px 0;
+      background:linear-gradient(180deg, #10284e 0%, #0b1e3b 100%);
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .values::before{
+      content:"";
+      position:absolute;
+      inset:auto -10% -20% auto;
+      width:480px;
+      height:480px;
+      background:radial-gradient(circle, rgba(245,130,49,.18) 0, transparent 66%);
+      pointer-events:none;
+    }
+    .values-head{
+      text-align:center;
+      max-width:920px;
+      margin:0 auto;
+    }
+    .values .section-kicker,
+    .values .section-title,
+    .values .section-subtitle{color:#fff}
+    .values .section-kicker{opacity:.96}
+    .values .section-subtitle{color:rgba(255,255,255,.78)}
+    .values-grid{
+      margin-top:42px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+    .value-card{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 12px 30px rgba(0,0,0,.12);
+      min-height:150px;
+    }
+    .value-card .bar{
+      width:34px;
+      height:3px;
+      border-radius:999px;
+      margin-bottom:14px;
+      background:var(--orange);
+    }
+    .value-card:nth-child(2) .bar{background:#2bb07f}
+    .value-card:nth-child(3) .bar{background:#4ca1ff}
+    .value-card:nth-child(4) .bar{background:#7d5cff}
+    .value-card:nth-child(5) .bar{background:#36c5f0}
+    .value-card:nth-child(6) .bar{background:#ffb14a}
+    .value-card h4{
+      margin:0;
+      font-size:16px;
+      font-weight:800;
+      line-height:1.3;
+    }
+    .value-card p{
+      margin:10px 0 0;
+      color:rgba(255,255,255,.78);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    /* Approach */
+    .approach{
+      padding:96px 0;
+      background:#fff;
+    }
+    .approach-head{
+      text-align:center;
+      max-width:900px;
+      margin:0 auto 42px;
+    }
+    .approach-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:18px;
+    }
+    .approach-card{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:18px;
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+    .approach-card .num{
+      display:inline-grid;
+      place-items:center;
+      width:40px;
+      height:40px;
+      border-radius:12px;
+      background:rgba(17,40,79,.08);
+      color:var(--blue);
+      font-weight:900;
+      margin-bottom:14px;
+    }
+    .approach-card h4{
+      margin:0;
+      font-size:16px;
+      color:var(--navy);
+      font-weight:800;
+    }
+    .approach-card p{
+      margin:10px 0 0;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.8;
+    }
+
+    /* CTA */
+    .cta{
+      padding:90px 0;
+      background:linear-gradient(135deg, #10284e 0%, #173a72 100%);
+      color:#fff;
+    }
+    .cta-inner{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+      padding:34px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:28px;
+      background:rgba(255,255,255,.04);
+      box-shadow:var(--shadow-strong);
+    }
+    .cta h2{
+      margin:0;
+      font-size:clamp(2.2rem,4vw,3.8rem);
+      line-height:.95;
+      font-weight:700;
+      letter-spacing:-.05em;
+    }
+    .cta p{
+      margin:14px 0 0;
+      color:rgba(255,255,255,.82);
+      line-height:1.85;
+      font-size:14px;
+      max-width:680px;
+    }
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:flex-end;
+    }
+    .cta .btn{
+      padding:14px 18px;
+      border-radius:8px;
+    }
+
+    /* Footer */
+    .footer{
+      background:var(--navy-2);
+      color:#dbe4f2;
+      padding:72px 0 26px;
+    }
+    .footer-inner{
+      display:grid;
+      grid-template-columns:1.25fr .75fr .75fr .9fr;
+      gap:34px;
+      align-items:start;
+    }
+    .footer-brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:16px;
+    }
+    .footer-brand .logo{
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 36% 32%, #fff 0 10%, transparent 11%),
+        linear-gradient(135deg, var(--blue), #0a1d3a);
+      position:relative;
+      box-shadow:0 10px 24px rgba(0,0,0,.22);
+      flex:0 0 auto;
+    }
+    .footer-brand .logo:after{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border:2px solid rgba(255,255,255,.92);
+      border-right-color:transparent;
+      border-radius:50%;
+      transform:rotate(18deg);
+    }
+    .footer-brand h3{
+      margin:0;
+      font-size:16px;
+      line-height:1.1;
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .footer p{
+      margin:0;
+      color:#9fb0c8;
+      font-size:13px;
+      line-height:1.9;
+      max-width:340px;
+    }
+    .footer-quote{
+      margin-top:16px;
+      color:var(--orange);
+      font-family:"Cormorant Garamond",Georgia,serif;
+      font-style:italic;
+      font-size:18px;
+      line-height:1.4;
+      font-weight:700;
+    }
+    .footer h4{
+      margin:4px 0 18px;
+      color:#fff;
+      font-size:13px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+    }
+    .footer-links{
+      display:grid;
+      gap:12px;
+      font-size:13px;
+      color:#c1cee0;
+    }
+    .footer-links a:hover{color:#fff}
+    .contact-item{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:12px;
+      font-size:13px;
+      color:#c1cee0;
+      line-height:1.5;
+    }
+    .contact-icon{
+      width:18px;
+      height:18px;
+      color:var(--orange);
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+    .socials{
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .social{
+      width:32px;
+      height:32px;
+      border-radius:10px;
+      background:rgba(255,255,255,.08);
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      font-weight:800;
+      color:#fff;
+    }
+    .footer-bottom{
+      margin-top:34px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
+      text-align:center;
+      color:#8fa3bf;
+      font-size:12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px){
+      .nav{display:none}
+      .nav-toggle{display:inline-flex}
+      .story-grid,
+      .mv-grid,
+      .cta-inner,
+      .footer-inner{
+        grid-template-columns:1fr;
+      }
+      .values-grid,
+      .approach-grid,
+      .news-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .partner-pill-grid,
+      .partners-pill-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .brand{min-width:0}
+      .footer p,
+      .footer-quote{max-width:none}
+      .news-grid{
+        gap:16px;
+      }
+    }
+
+    @media (max-width: 820px){
+      .header-inner{
+        min-height:auto;
+        padding:14px 0;
+        flex-wrap:wrap;
+        align-items:center;
+      }
+      .header-actions{
+        width:auto;
+        justify-content:flex-end;
+        margin-left:auto;
+      }
+      .hero-grid{
+        min-height:560px;
+        padding:48px 0 42px;
+      }
+      .hero h1{
+        font-size:clamp(2.9rem,12vw,4.8rem);
+      }
+      
+      .hero p{
+        max-width:100%;
+        font-size:15px;
+      }
+      .hero-stats{
+        gap:14px 20px;
+      }
+      .story,
+      .mv,
+      .values,
+      .approach,
+      .cta{
+        padding:72px 0;
+      }
+      .story-photo{
+        min-height:380px;
+      }
+      .cta-inner{
+        padding:24px;
+      }
+      .cta-actions{
+        justify-content:flex-start;
+      }
+      .values-grid,
+      .approach-grid,
+      .news-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .footer-inner{
+        grid-template-columns:1fr;
+      }
+      
+      .partners-strip{
+        grid-template-columns:repeat(2,1fr);
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:120px;
+      }
+      .partners-pill-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px){
+      .container{width:min(1180px,calc(100% - 20px))}
+      .brand{
+        min-width:0;
+      }
+      .brand-name strong{
+        font-size:12px;
+      }
+      .brand-name span{
+        font-size:10px;
+      }
+      .header-inner{
+        gap:12px;
+      }
+      .header-actions{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+        margin-left:0;
+      }
+      .nav-toggle{
+        margin-left:auto;
+      }
+
+      .hero-grid{
+        padding:32px 0 28px;
+      }
+      .hero h1{
+        font-size:clamp(2.8rem,12vw,4.6rem);
+      }
+      .hero p{
+        font-size:14px;
+        line-height:1.85;
+      }
+      .hero-actions .btn,
+      .cta .btn,
+      .news-action,
+      .partners-cta{
+        width:100%;
+      }
+
+      .about,
+      .programs,
+      .story,
+      .values,
+      .partners,
+      .news{
+        padding-left:0;
+        padding-right:0;
+      }
+
+      .about{
+        padding-top:64px;
+        padding-bottom:64px;
+      }
+      .programs{
+        padding-top:64px;
+        padding-bottom:48px;
+      }
+      .values{
+        padding-top:64px;
+        padding-bottom:72px;
+      }
+      .story{
+        padding-top:64px;
+        padding-bottom:64px;
+      }
+      .news{
+        padding-top:64px;
+        padding-bottom:68px;
+      }
+      .partners-main{
+        padding-top:64px;
+      }
+
+      .programs-grid,
+      .values-grid,
+      .story-grid,
+      .news-grid,
+      .partners-grid,
+      .footer-inner,
+      .approach-grid,
+      .mv-grid{
+        grid-template-columns:1fr;
+      }
+
+      .program-card,
+      .value-card,
+      .news-card,
+      .partner-pill,
+      .story-box,
+      .about-image,
+      .story-image,
+      .partners-image,
+      .mv-card,
+      .approach-card{
+        border-radius:14px;
+      }
+
+      .program-image{
+        height:170px;
+      }
+      .news-image{
+        height:190px;
+      }
+      .partners-strip{
+        grid-template-columns:1fr 1fr;
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:108px;
+      }
+      .years-card{
+        right:14px;
+        bottom:-14px;
+        min-width:100px;
+      }
+
+      .section-title,
+      .values h2,
+      .story-copy h2,
+      .partners-copy h2,
+      .news-head h2{
+        line-height:1;
+      }
+
+      .footer{
+        padding:30px 0 22px;
+      }
+      .footer-inner{
+        gap:28px;
+      }
+      .footer-brand{
+        max-width:none;
+      }
+      .footer p,
+      .footer-quote{
+        max-width:none;
+      }
+      .socials{
+        margin-top:12px;
+      }
+      .mobile-drawer{
+        width:min(92vw, 360px);
+      }
+      
+      .partners-strip{
+        grid-template-columns:repeat(2,1fr);
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:120px;
+      }
+      .partners-pill-grid{
+        grid-template-columns:1fr 1fr;
+      }
+       .about-grid,
+      .programs-grid,
+      .values-grid,
+      .story-grid,
+      .news-grid,
+      .partners-grid,
+      .footer-inner,
+      .partners-pill-grid{
+        grid-template-columns:1fr;
+      }
+    }
+       .brand{
+  display:flex;
+  align-items:center;
+  min-width:250px;
+  text-decoration:none;
+}
+
+.brand-image{
+  display:block;
+  width:auto;
+  height:62px;       /* adjust as needed */
+  max-width:100%;
+  object-fit:contain;
+}
+.footer-brand{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.footer-brand-image{
+  display:block;
+  width:auto;
+  height:62px;   /* adjust to suit your footer */
+  max-width:100%;
+  object-fit:contain;
+}
+.mobile-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  height:100vh;
+  width:min(88vw, 360px);
+  background:linear-gradient(180deg, #0f2244 0%, #0b1e3b 100%);
+  border-left:1px solid rgba(255,255,255,.08);
+  box-shadow:-18px 0 44px rgba(7,12,20,.22);
+  transform:translateX(100%);
+  transition:transform .28s ease;
+  z-index:60;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+}
+
+.mobile-drawer.open{
+  transform:translateX(0);
+}
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:16px;
+}
+
+.drawer-brand{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  text-decoration:none;
+}
+
+.drawer-brand-image{
+  display:block;
+  width:auto;
+  height:44px;   /* adjust as needed */
+  max-width:100%;
+  object-fit:contain;
+}
+
+    /* Partners */
+    .partners{
+      background:#f7f9fc;
+      padding:0 0 84px;
+    }
+    .partners-strip{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      height:178px;
+      overflow:hidden;
+      background:#d9e2ef;
+    }
+    .partners-strip .strip-card{
+      position:relative;
+      overflow:hidden;
+    }
+    .partners-strip .strip-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:saturate(.95) contrast(.96);
+      transform:scale(1.02);
+    }
+    .partners-strip .strip-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(10,20,35,.18), rgba(10,20,35,.28));
+    }
+    .partners-main{
+      padding:84px 0 0;
+    }
+    .partners-grid{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:56px;
+      align-items:center;
+    }
+    .partners-copy{
+      max-width:520px;
+    }
+    .partners-copy h2{
+      margin:12px 0 0;
+      font-size:clamp(2.4rem, 4vw, 4.15rem);
+      line-height:.98;
+      font-weight:700;
+      color:var(--navy);
+      letter-spacing:-0.05em;
+    }
+    .partners-copy p{
+      margin:18px 0 0;
+      color:var(--text);
+      font-size:15px;
+      line-height:1.9;
+      max-width:520px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1100px){
+      .nav{display:none}
+      .nav-toggle{display:inline-flex}
+      .header-actions{
+        min-width:0;
+        gap:8px;
+      }
+      .programs-grid,
+      .values-grid,
+      .story-grid,
+      .about-grid,
+      .footer-inner,
+      .partners-grid{
+        grid-template-columns:1fr;
+      }
+      .about-grid,
+      .story-grid,
+      .partners-grid{
+        gap:36px;
+      }
+      .values-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .news-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .partners-pill-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .brand{min-width:0}
+      .footer p,
+      .footer-quote{max-width:none}
+      .programs-grid,
+      .values-grid,
+      .news-grid{
+        gap:16px;
+      }
+      .program-card,
+      .value-card,
+      .news-card{
+        min-height:auto;
+      }
+    }
+
+    @media (max-width: 820px){
+      .container{width:min(1180px,calc(100% - 24px))}
+      .header-inner{
+        padding:14px 0;
+        flex-wrap:wrap;
+        align-items:center;
+      }
+      .header-actions{
+        width:auto;
+        justify-content:flex-end;
+        margin-left:auto;
+      }
+      .hero-grid{
+        padding:42px 0 34px;
+        min-height:calc(100vh - 74px);
+      }
+      .hero h1{
+        font-size:clamp(3rem,10vw,4.9rem);
+      }
+      .hero p{
+        max-width:100%;
+        font-size:15px;
+      }
+      .hero-stats{
+        gap:14px 20px;
+      }
+
+      .about,
+      .programs,
+      .story{
+        padding:72px 0;
+      }
+      .values{
+        padding:76px 0 86px;
+      }
+      .partners-main{
+        padding:72px 0 0;
+      }
+      .news{
+        padding:72px 0 80px;
+      }
+
+      .values-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .programs-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .news-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .partners-strip{
+        grid-template-columns:repeat(2,1fr);
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:120px;
+      }
+      .partners-pill-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .footer-inner{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .program-image{
+        height:156px;
+      }
+      .story-badge{
+        left:10px;
+        top:10px;
+      }
+      .years-card{
+        right:18px;
+      }
+      .footer{
+        padding:34px 0 24px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .container{width:min(1180px,calc(100% - 20px))}
+      .brand{
+        min-width:0;
+      }
+      .brand-name strong{
+        font-size:12px;
+      }
+      .brand-name span{
+        font-size:10px;
+      }
+      .header-inner{
+        gap:12px;
+      }
+      .header-actions{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+      }
+      .nav-toggle{
+        margin-left:auto;
+      }
+
+      .hero-grid{
+        padding:32px 0 28px;
+      }
+      .hero h1{
+        font-size:clamp(2.8rem,12vw,4.6rem);
+      }
+      .hero p{
+        font-size:14px;
+        line-height:1.85;
+      }
+      .hero-actions .btn,
+      .partners-cta,
+      .news-action{
+        width:100%;
+      }
+
+      .about,
+      .programs,
+      .story,
+      .values,
+      .partners,
+      .news{
+        padding-left:0;
+        padding-right:0;
+      }
+
+      .about-grid,
+      .programs-grid,
+      .values-grid,
+      .story-grid,
+      .news-grid,
+      .partners-grid,
+      .footer-inner,
+      .partners-pill-grid{
+        grid-template-columns:1fr;
+      }
+
+      .about{
+        padding-top:64px;
+        padding-bottom:64px;
+      }
+      .programs{
+        padding-top:64px;
+        padding-bottom:48px;
+      }
+      .values{
+        padding-top:64px;
+        padding-bottom:72px;
+      }
+      .story{
+        padding-top:64px;
+        padding-bottom:64px;
+      }
+      .news{
+        padding-top:64px;
+        padding-bottom:68px;
+      }
+      .partners-main{
+        padding-top:64px;
+      }
+
+      .program-card,
+      .value-card,
+      .news-card,
+      .partner-pill,
+      .story-box,
+      .about-image,
+      .story-image,
+      .partners-image{
+        border-radius:14px;
+      }
+
+      .program-image{
+        height:170px;
+      }
+      .news-image{
+        height:190px;
+      }
+      .partners-strip{
+        grid-template-columns:1fr 1fr;
+        height:auto;
+      }
+      .partners-strip .strip-card{
+        min-height:108px;
+      }
+      .years-card{
+        right:14px;
+        bottom:-14px;
+        min-width:100px;
+      }
+
+      .section-title,
+      .values h2,
+      .story-copy h2,
+      .partners-copy h2,
+      .news-head h2{
+        line-height:1;
+      }
+
+      .footer{
+        padding:30px 0 22px;
+      }
+      .footer-inner{
+        gap:28px;
+      }
+      .footer-brand{
+        max-width:none;
+      }
+      .footer p,
+      .footer-quote{
+        max-width:none;
+      }
+      .socials{
+        margin-top:12px;
+      }
+      .mobile-drawer{
+        width:min(92vw, 360px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+       <a class="brand" href="index.html" aria-label="Media for Social Impact home">
+  <img src="logo.png" alt="Media for Social Impact MSI Programs" class="brand-image">
+</a>
+
+      <nav class="nav" aria-label="Primary navigation">
+              <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+ <a href="team.html">Team</a>
+        <a href="programs.html">Programs</a>
+         <a href="fellowship.html">Fellowships</a>
+        <a href="partnership.html">Partnerships</a>
+         <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <div class="header-actions">
+
+        <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
+          <span class="bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="drawer-head">
+     <a class="drawer-brand" href="index.html" aria-label="Media for Social Impact home">
+    <img src="logo.png" alt="Media for Social Impact MSI Programs" class="drawer-brand-image">
+  </a>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Mobile primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+ <a href="team.html">Team</a>
+  <a href="fellowship.html">Fellowships</a>
+        <a href="programs.html">Programs</a>
+        <a href="partnership.html">Partnerships</a>
+        <a href="gallary.html">Media Gallery</a>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <div class="drawer-cta">
+
+      <a class="btn btn-dark" href="Get_involved.html">Get Involved</a>
+    </div>
+  </aside>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-carousel" id="heroCarousel">
+        <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1600&q=80');"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1600&q=80');"></div>
+      </div>
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">A Global Non-Profit Organization</div>
+
+          <h1 class="font-display">
+            Amplifying Voices,<br>
+            <span class="accent">Inspiring Change,</span><br>
+            Transforming Communities
+          </h1>
+
+          <p>
+            Media for Social Impact (MSI) leverages media, storytelling, advocacy, and innovation to promote sustainable development, democratic governance, youth empowerment, disability inclusion, and international cooperation.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="programs.html">Explore Programs →</a>
+            <a class="btn btn-white" href="partnership.html">Partner With Us</a>
+          </div>
+
+          <div class="hero-stats">
+            <span><i class="dot"></i>Global Reach</span>
+            <span><i class="dot"></i>Youth Empowerment</span>
+            <span><i class="dot"></i>Storytelling for Change</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="story" id="about">
+      <div class="container story-grid">
+        <div class="story-media">
+          <div class="story-badge">
+            <strong>10+</strong>
+            <small>Years of Impact</small>
+          </div>
+          <div class="story-photo">
+            <img src="image/eleven.jpeg" alt="Team discussion" />
+          </div>
+        </div>
+
+        <div class="story-copy">
+          <div class="section-kicker"><span class="line"></span>Who We Are</div>
+          <h2 class="section-title font-display">Media as a Force for Social Transformation</h2>
+          <p>
+            MSI was founded on a simple conviction: media and communication are powerful instruments for education, advocacy, empowerment, and social change.
+          </p>
+          <p>
+            We work at the intersection of journalism, film, digital storytelling, advocacy campaigns, and international exchange. Our programs equip media professionals, youth leaders, policymakers, civil society organizations, and educational institutions with the skills and networks they need to drive meaningful change.
+          </p>
+          <p>
+            From strengthening democratic institutions through informed public discourse to amplifying marginalized voices through digital storytelling, MSI is committed to a world where every community can shape its own narrative.
+          </p>
+          <div class="quote">
+            We believe that powerful stories create informed citizens, empowered communities, and lasting social change.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mv">
+      <div class="container">
+        <div class="mv-head">
+          <div class="section-kicker" style="justify-content:center;"><span class="line"></span>Who We Are <span class="line"></span></div>
+          <h2 class="section-title font-display">Purpose-Driven, People-Centered, Impact-Focused</h2>
+          <p class="section-subtitle">
+            MSI works with media professionals, youth leaders, policymakers, civil society organizations, development partners, educational institutions, and community stakeholders to amplify voices that matter and foster positive change across local, national, and global communities.
+          </p>
+        </div>
+
+        <div class="mv-grid">
+          <article class="mv-card">
+            <div class="mv-icon">V</div>
+            <h3>Vision</h3>
+            <p>
+              To be a leading global organization utilizing media, storytelling, innovation, and advocacy to drive social transformation, strengthen democratic societies, and promote inclusive and sustainable development.
+            </p>
+          </article>
+
+          <article class="mv-card">
+            <div class="mv-icon">M</div>
+            <h3>Mission</h3>
+            <p>
+              To empower individuals, communities, and institutions through media-driven initiatives, capacity building, advocacy, fellowship programs, and strategic communication that foster social impact, democratic participation, international cooperation, and sustainable development.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  <section class="partners" id="partners">
+    <div class="partners-strip" aria-hidden="true">
+      <div class="strip-card">
+        <img src="image/photo11.jeg.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/photo12.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/photo12jpeg.jpeg" alt="" />
+      </div>
+      <div class="strip-card">
+        <img src="image/photo15.jpeg" alt="" />
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+    <section class="values" id="values">
+      <div class="container">
+        <div class="values-head">
+          <div class="section-kicker" style="justify-content:center;"><span class="line"></span>Core Values <span class="line"></span></div>
+          <h2 class="section-title font-display">Guided by Values, Driven by Purpose</h2>
+          <p class="section-subtitle">
+            Six core principles shape every program, partnership, and story we tell.
+          </p>
+        </div>
+
+        <div class="values-grid">
+          <article class="value-card">
+            <div class="bar"></div>
+            <h4>Integrity</h4>
+            <p>We uphold the highest standards of ethics, transparency, and accountability.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar"></div>
+            <h4>Inclusion</h4>
+            <p>We believe every voice deserves to be heard and represented.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar"></div>
+            <h4>Innovation</h4>
+            <p>We embrace creativity and technology to advance social impact.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar"></div>
+            <h4>Collaboration</h4>
+            <p>We build partnerships that strengthen communities and amplify outcomes.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar"></div>
+            <h4>Excellence</h4>
+            <p>We strive for quality, professionalism, and measurable impact.</p>
+          </article>
+          <article class="value-card">
+            <div class="bar"></div>
+            <h4>Empowerment</h4>
+            <p>We equip individuals and communities with the tools to become agents of change.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="approach" id="approach">
+      <div class="container">
+        <div class="approach-head">
+          <div class="section-kicker" style="justify-content:center;"><span class="line"></span>How We Work <span class="line"></span></div>
+          <h2 class="section-title font-display">A Practical Model for Lasting Impact</h2>
+          <p class="section-subtitle">
+            MSI combines research, training, storytelling, advocacy, and partnership to move ideas from awareness to action.
+          </p>
+        </div>
+
+        <div class="approach-grid">
+          <article class="approach-card">
+            <div class="num">01</div>
+            <h4>Understand</h4>
+            <p>We listen to communities and partners to identify needs, barriers, and opportunities for change.</p>
+          </article>
+          <article class="approach-card">
+            <div class="num">02</div>
+            <h4>Equip</h4>
+            <p>We build skills through fellowships, training, exchange, and practical media learning experiences.</p>
+          </article>
+          <article class="approach-card">
+            <div class="num">03</div>
+            <h4>Amplify</h4>
+            <p>We use content, campaigns, and public dialogue to elevate voices and shape conversations.</p>
+          </article>
+          <article class="approach-card">
+            <div class="num">04</div>
+            <h4>Transform</h4>
+            <p>We support partners and communities to turn ideas into sustained social impact.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-inner">
+          <div>
+            <div class="section-kicker" style="color:#fff;"><span class="line"></span>Get Involved</div>
+            <h2 class="font-display">Join us in building a more inclusive and sustainable world.</h2>
+            <p>
+              Explore partnership opportunities, support our programs, or connect with us to learn more about how MSI collaborates with organizations and communities around the world.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="mailto:info@mediaforsocialimpact.org">Email Us →</a>
+            <a class="btn btn-outline" href="#top">Back to Top</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+            <div class="footer-brand">
+  <img src="logo.png" alt="Media for Social Impact" class="footer-brand-image">
+</div>
+          <p>
+            A global non-profit organization leveraging media, storytelling, advocacy, and innovation to promote sustainable development, democratic governance, youth empowerment, disability inclusion, and social transformation worldwide.
+          </p>
+          <div class="footer-quote">“Amplifying Voices, Inspiring Change, Transforming Communities”</div>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="#about">About Us</a>
+            <a href="#values">Core Values</a>
+            <a href="#approach">Our Approach</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>What We Do</h4>
+          <div class="footer-links">
+            <a href="#about">Storytelling</a>
+            <a href="#approach">Capacity Building</a>
+            <a href="#approach">Advocacy</a>
+            <a href="#approach">Partnerships</a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Connect</h4>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            <span>info@mediaforsocialimpact.org</span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.2 19.2 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.2 2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72c.12.89.33 1.75.62 2.58a2 2 0 0 1-.45 2.11L8 9.5a16 16 0 0 0 6.5 6.5l1.09-1.24a2 2 0 0 1 2.11-.45c.83.29 1.69.5 2.58.62A2 2 0 0 1 22 16.92z"/></svg>
+            <span>Partnerships</span>
+          </div>
+          <div class="contact-item">
+            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span>mediaforsocialimpact.org</span>
+          </div>
+
+          <div class="socials" aria-label="Social media links">
+            <span class="social">f</span>
+            <span class="social">x</span>
+            <span class="social">◎</span>
+            <span class="social">in</span>
+            <span class="social">▶</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 Media for Social Impact. All rights reserved.
+      </div>
+    </div>
+  </footer>
+<style>
+    @media (max-width: 1100px) {
+  .nav {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .story-grid,
+  .mv-grid,
+  .cta-inner,
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid,
+  .approach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .footer p,
+  .footer-quote {
+    max-width: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .header-inner {
+    min-height: auto;
+    padding: 14px 0;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .header-actions {
+    width: auto;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .hero-grid {
+    min-height: 560px;
+    padding: 48px 0 42px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.9rem, 12vw, 4.8rem);
+  }
+
+  .hero p {
+    max-width: 100%;
+    font-size: 15px;
+  }
+
+  .hero-stats {
+    gap: 14px 20px;
+  }
+
+  .story,
+  .mv,
+  .values,
+  .approach,
+  .cta {
+    padding: 72px 0;
+  }
+
+  .story-photo {
+    min-height: 380px;
+  }
+
+  .cta-inner {
+    padding: 24px;
+  }
+
+  .cta-actions {
+    justify-content: flex-start;
+  }
+
+  .values-grid,
+  .approach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(1180px, calc(100% - 20px));
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .brand-name strong {
+    font-size: 12px;
+  }
+
+  .brand-name span {
+    font-size: 10px;
+  }
+
+  .header-inner {
+    gap: 12px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-left: 0;
+  }
+
+  .nav-toggle {
+    margin-left: auto;
+  }
+
+  .hero-grid {
+    padding: 32px 0 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 12vw, 4.6rem);
+  }
+
+  .hero p {
+    font-size: 14px;
+    line-height: 1.85;
+  }
+
+  .hero-actions .btn,
+  .cta .btn {
+    width: 100%;
+  }
+
+  .about,
+  .programs,
+  .story,
+  .values,
+  .partners,
+  .news {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .story-grid,
+  .mv-grid,
+  .values-grid,
+  .approach-grid,
+  .cta-inner,
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .story {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .mv {
+    padding-top: 8px;
+    padding-bottom: 72px;
+  }
+
+  .values {
+    padding-top: 64px;
+    padding-bottom: 72px;
+  }
+
+  .approach {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .cta {
+    padding: 64px 0;
+  }
+
+  .story-photo,
+  .mv-card,
+  .value-card,
+  .approach-card,
+  .cta-inner {
+    border-radius: 14px;
+  }
+
+  .story-photo {
+    min-height: 320px;
+  }
+
+  .story-badge {
+    left: 10px;
+    top: 10px;
+  }
+
+  .values-grid,
+  .approach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .value-card,
+  .approach-card {
+    padding: 16px 12px;
+    min-height: 100%;
+  }
+
+  .value-card h4,
+  .approach-card h4 {
+    font-size: 14px;
+  }
+
+  .value-card p,
+  .approach-card p,
+  .story-copy p,
+  .section-subtitle,
+  .cta p {
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .cta-inner {
+    padding: 20px;
+  }
+
+  .cta-actions {
+    justify-content: flex-start;
+  }
+
+  .footer {
+    padding: 30px 0 22px;
+  }
+
+  .footer-inner {
+    gap: 28px;
+  }
+
+  .footer-brand {
+    max-width: none;
+  }
+
+  .footer p,
+  .footer-quote {
+    max-width: none;
+  }
+
+  .socials {
+    margin-top: 12px;
+  }
+
+  .mobile-drawer {
+    width: min(92vw, 360px);
+  }
+}
+
+@media (max-width: 420px) {
+  .values-grid,
+  .approach-grid {
+    gap: 10px;
+  }
+
+  .value-card,
+  .approach-card {
+    padding: 14px 10px;
+  }
+
+  .mv-card {
+    padding: 18px;
+  }
+
+  .story-photo {
+    min-height: 290px;
+  }
+
+  .hero-actions .btn,
+  .cta .btn {
+    width: 100%;
+  }
+}
+</style>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.hero-slide'));
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 4000);
+
+    const navToggle = document.getElementById('navToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const drawerClose = document.getElementById('drawerClose');
+
+    function openDrawer() {
+      mobileDrawer.classList.add('open');
+      drawerBackdrop.classList.add('show');
+      document.body.classList.add('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'false');
+      navToggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      mobileDrawer.classList.remove('open');
+      drawerBackdrop.classList.remove('show');
+      document.body.classList.remove('menu-open');
+      mobileDrawer.setAttribute('aria-hidden', 'true');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    navToggle.addEventListener('click', () => {
+      if (mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    mobileDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1100 && mobileDrawer.classList.contains('open')) {
+        closeDrawer();
+      }
+    });
+  </script>
+</body>
+</html>
