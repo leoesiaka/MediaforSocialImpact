@@ -1963,6 +1963,159 @@
     </div>
   </footer>
 
+<style>
+  @media (max-width: 768px) {
+  .section{
+    padding: 68px 0;
+  }
+
+  .overview-grid,
+  .program-highlights,
+  .triple-grid,
+  .grid-2,
+  .grid-3,
+  .form-hero,
+  .submit-note,
+  .sign-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .panel-inner,
+  .form-wrap,
+  .app-body{
+    padding: 18px;
+  }
+
+  .section-title{
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: .98;
+  }
+
+  .section-subtitle{
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .highlight-card,
+  .info-card,
+  .side-note,
+  .form-hero{
+    border-radius: 18px;
+  }
+
+  .hero-split{
+    grid-template-columns: 1fr;
+  }
+
+  .poster-card{
+    min-height: 320px;
+  }
+
+  .choice-grid.radio-grid,
+  .choice-grid.check-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .choice-item{
+    width: 100%;
+    padding: 12px 13px;
+  }
+
+  .timeline-item{
+    grid-template-columns: 24px 1fr;
+    gap: 10px;
+  }
+
+  .timeline-item span:last-child{
+    grid-column: 2 / -1;
+    white-space: normal;
+  }
+
+  .submit-note{
+    gap: 12px;
+  }
+
+  .submit-note .btn{
+    width: 100%;
+  }
+
+  .field input,
+  .field select,
+  .field textarea{
+    padding: 12px 13px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .section{
+    padding: 60px 0;
+  }
+
+  .panel-inner,
+  .form-wrap,
+  .app-body{
+    padding: 16px;
+  }
+
+  .section-title{
+    font-size: clamp(1.8rem, 11vw, 2.6rem);
+  }
+
+  .program-highlights,
+  .triple-grid{
+    gap: 12px;
+  }
+
+  .highlight-card,
+  .info-card{
+    border-radius: 16px;
+  }
+
+  .highlight-card{
+    min-height: auto;
+  }
+
+  .choice-item{
+    font-size: 12.5px;
+  }
+
+  .app-section .app-head{
+    padding: 16px;
+  }
+
+  .app-head h3{
+    font-size: 1rem;
+  }
+
+  .form-hero h2{
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+}
+@media (max-width: 768px) {
+  #contact .triple-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  #contact .info-card {
+    width: 100%;
+  }
+
+  #contact .info-card .head {
+    padding: 16px 16px 12px;
+  }
+
+  #contact .info-card .body {
+    padding: 16px;
+  }
+
+  #contact .info-card .body p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+}
+</style>
   <script>
     const navToggle = document.getElementById('navToggle');
     const mobileDrawer = document.getElementById('mobileDrawer');
